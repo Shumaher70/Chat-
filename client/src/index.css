@@ -2,6 +2,35 @@
    box-sizing: border-box;
    margin: 0;
    padding: 0;
-   height: 100%;
-   width: 100%;
+}
+
+body {
+   font-size: 16px;
+}
+
+.hero {
+   font-size: 40px;
+}
+
+@media (min-width: 768px) {
+   body {
+      font-size: 18px;
+   }
+
+   .hero {
+      font-size: 50px;
+   }
+}
+@media (min-width: 1024px) {
+   body {
+      font-size: 19px;
+   }
+   .hero {
+      font-size: 80px;
+   }
+}
+@media (min-width: 1280px) {
+   body {
+      font-size: 20px;
+   }
 }
