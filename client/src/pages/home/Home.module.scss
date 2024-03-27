@@ -1,4 +1,4 @@
-.container {
+%container-column {
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -6,13 +6,25 @@
    height: 100vh;
    width: 100vw;
    background-color: rgba(0, 0, 0, 0.822);
+}
+
+%container-row {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   width: 100vw;
+   background-color: rgba(0, 0, 0, 0.822);
+}
+
+.container {
+   @extend %container-column;
    gap: 30px;
    overflow: auto;
 
    img {
       max-width: 300px;
       width: 100%;
-
       object-fit: cover;
       animation: spiral 3s infinite alternate linear;
    }
@@ -25,6 +37,10 @@
       display: flex;
       gap: 10px;
    }
+}
+
+.auth {
+   @extend %container-row;
 }
 
 @media (min-width: 768px) {
