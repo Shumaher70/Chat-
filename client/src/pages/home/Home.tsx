@@ -1,12 +1,12 @@
 import styles from './Home.module.scss';
 import ButtonGray from '../../components/ButtonGray';
 
-import image from '../../images/home/spiral.webp';
 import { useNavigate } from 'react-router-dom';
 import { Session, createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { Auth } from '@supabase/auth-ui-react';
+import CloseIcon from '@mui/icons-material/Close';
 
 const supabase = createClient(
    process.env.REACT_APP_SUPERBASE_URL as string,
@@ -19,6 +19,10 @@ const Home = () => {
    const navigate = useNavigate();
 
    useEffect(() => {
+      if (session) {
+         navigate('/chat');
+      }
+
       supabase.auth.getSession().then(({ data: { session } }) => {
          setSession(session);
       });
@@ -30,51 +34,50 @@ const Home = () => {
       });
 
       return () => subscription.unsubscribe();
-   }, []);
-
-   if (session) {
-      navigate('/chat');
-   }
+   }, [navigate, session]);
 
    const handleClick = () => {
-      setShowAuth(true);
+      setShowAuth((previous) => !previous);
    };
 
    return (
       <>
-         {!showAuth && (
-            <div className={styles.container}>
-               <img src={image} alt="spiral" />
+         <div className={styles.container}>
+            <h1 className="hero">Welcome to chat.</h1>
 
-               <h1 className="hero">Connect to chat</h1>
-
-               <div>
-                  <ButtonGray
-                     onClick={handleClick}
-                     variant="contained"
-                     size="large"
-                  >
-                     sing in
-                  </ButtonGray>
-
-                  <ButtonGray
-                     onClick={handleClick}
-                     variant="contained"
-                     size="large"
-                  >
-                     sing up
-                  </ButtonGray>
-               </div>
+            <div>
+               <ButtonGray
+                  onClick={handleClick}
+                  variant="contained"
+                  size="large"
+               >
+                  Get Started
+               </ButtonGray>
             </div>
-         )}
+         </div>
 
          {showAuth && (
             <div className={styles.auth}>
                <Auth
                   supabaseClient={supabase}
-                  appearance={{ theme: ThemeSupa }}
+                  appearance={{
+                     theme: ThemeSupa,
+                     style: {
+                        container: {
+                           backgroundColor: 'white',
+                           margin: 0,
+                           padding: 10,
+                           minWidth: 300,
+                        },
+                        divider: {
+                           margin: 0,
+                        },
+                     },
+                  }}
                   providers={['google', 'github']}
                />
+
+               <CloseIcon onClick={handleClick} className={styles.close} />
             </div>
          )}
       </>
