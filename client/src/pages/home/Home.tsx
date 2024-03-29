@@ -2,6 +2,7 @@ import styles from './Home.module.scss';
 import ButtonGray from '../../components/ButtonGray';
 
 import { useNavigate } from 'react-router-dom';
+import LightMode from '../../components/lightMode/LightMode';
 
 const Home = () => {
    const navigate = useNavigate();
@@ -23,6 +24,10 @@ const Home = () => {
                >
                   Get Started
                </ButtonGray>
+            </div>
+
+            <div className={styles.lightMode}>
+               <LightMode />
             </div>
          </div>
       </>
