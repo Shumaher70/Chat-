@@ -4,6 +4,7 @@ import NotFound from './pages/notFound/NotFound';
 import LoginPage from './auth/LoginPage';
 import AuthLayout from './auth/AuthLayout';
 import ThemeProvider from './components/lightMode/ThemeProvider';
+import Chat from './pages/chat/Chat';
 
 function App() {
    return (
@@ -14,7 +15,7 @@ function App() {
                <Route element={<AuthLayout />}>
                   <Route path="/" element={<Home />} />
                   <Route path="/login" element={<LoginPage />} />
-                  <Route path="/chat" element={<div>chat</div>} />
+                  <Route path="/chat" element={<Chat />} />
                </Route>
             </Routes>
          </BrowserRouter>

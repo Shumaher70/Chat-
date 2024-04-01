@@ -12,25 +12,19 @@ const Home = () => {
    };
 
    return (
-      <>
-         <div className={styles.container}>
-            <h1 className="hero">Welcome to chat.</h1>
+      <main className={styles.container}>
+         <h1 className="hero">Welcome to chat.</h1>
 
-            <div>
-               <ButtonGray
-                  onClick={handleClick}
-                  variant="contained"
-                  size="large"
-               >
-                  Get Started
-               </ButtonGray>
-            </div>
-
-            <div className={styles.lightMode}>
-               <LightMode />
-            </div>
+         <div>
+            <ButtonGray onClick={handleClick} variant="contained" size="large">
+               Get Started
+            </ButtonGray>
          </div>
-      </>
+
+         <div className={styles.lightMode}>
+            <LightMode />
+         </div>
+      </main>
    );
 };
 

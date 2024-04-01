@@ -15,12 +15,12 @@ const NotFound = () => {
    };
 
    return (
-      <div className={styles.container}>
+      <main className={styles.container}>
          <h1 className="hero">404 not found</h1>
          <ButtonGray onClick={handleClick} size="large">
             to home
          </ButtonGray>
-      </div>
+      </main>
    );
 };
 
