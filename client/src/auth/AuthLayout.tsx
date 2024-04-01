@@ -37,26 +37,20 @@ export const handleAvailablePaths = (
 const AuthLayout = () => {
    const location = useLocation();
    const navigate = useNavigate();
-   const [session, setSession] = useState<Session | null>(null);
    const dispatch = useAppDispatch();
-   console.log(session);
 
    useEffect(() => {
       supabase.auth.getSession().then(({ data: { session } }) => {
-         setSession(session);
+         handleAvailablePaths(session, location, navigate, dispatch);
       });
 
       const {
          data: { subscription },
       } = supabase.auth.onAuthStateChange((_event, session) => {
-         setSession(session);
+         handleAvailablePaths(session, location, navigate, dispatch);
       });
       return () => subscription.unsubscribe();
-   }, []);
-
-   useEffect(() => {
-      handleAvailablePaths(session, location, navigate, dispatch);
-   }, [dispatch, location, location.pathname, navigate, session]);
+   }, [dispatch, location, navigate]);
 
    return <Outlet />;
 };
