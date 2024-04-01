@@ -9,11 +9,37 @@ export const supabase = createClient(
    process.env.REACT_APP_SUPEBASE_PUBLICK_KEY as string
 );
 
+export const handleAvailablePaths = (
+   session: Session | null,
+   location: any,
+   navigate: any,
+   dispatch: any
+) => {
+   if (
+      (location.pathname === '/' && !session) ||
+      (location.pathname === '/login' && !session)
+   ) {
+      return;
+   } else if (
+      (location.pathname !== '/' && !session) ||
+      (location.pathname !== '/login' && !session)
+   ) {
+      return navigate('/login');
+   } else if (
+      location.pathname === '/login' ||
+      (location.pathname === '/' && session)
+   ) {
+      dispatch(getAuthUserAction(session!.user));
+      return navigate('/chat');
+   }
+};
+
 const AuthLayout = () => {
    const location = useLocation();
    const navigate = useNavigate();
    const [session, setSession] = useState<Session | null>(null);
    const dispatch = useAppDispatch();
+   console.log(session);
 
    useEffect(() => {
       supabase.auth.getSession().then(({ data: { session } }) => {
@@ -29,28 +55,8 @@ const AuthLayout = () => {
    }, []);
 
    useEffect(() => {
-      const handleAvailablePaths = () => {
-         if (
-            (location.pathname === '/' && !session) ||
-            (location.pathname === '/login' && !session)
-         ) {
-            return;
-         } else if (
-            (location.pathname !== '/' && !session) ||
-            (location.pathname !== '/login' && !session)
-         ) {
-            return navigate('/login');
-         } else if (
-            location.pathname === '/login' ||
-            (location.pathname === '/' && session)
-         ) {
-            dispatch(getAuthUserAction(session!.user));
-            return navigate('/chat');
-         }
-      };
-
-      handleAvailablePaths();
-   }, [dispatch, location.pathname, navigate, session]);
+      handleAvailablePaths(session, location, navigate, dispatch);
+   }, [dispatch, location, location.pathname, navigate, session]);
 
    return <Outlet />;
 };

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Home from '../pages/home/Home';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store/store';
