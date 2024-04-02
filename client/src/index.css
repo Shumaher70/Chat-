@@ -8,14 +8,14 @@
    --background: #f2f2f2;
    --text-primary: #0f0f0f;
    --shadow: 0px 15px 13px -4px #00000056;
-   --background-dark-2: rgba(146, 146, 146, 0.171);
-   --background-dark-1: rgba(146, 146, 146, 0.322);
+   --background-dark-2: #e1e1e1;
+   --background-dark-1: #c8c8c8;
 }
 
 [data-theme='dark'] {
    --background: #05010a;
-   --background-dark-2: rgba(146, 146, 146, 0.171);
-   --background-dark-1: rgba(146, 146, 146, 0.322);
+   --background-dark-2: #1d1a21;
+   --background-dark-1: #434145;
    --text-primary: #f2f2f2;
    --shadow: 7px 15px 13px -4px #ffffff1b;
 }
@@ -24,16 +24,18 @@ body {
    font-size: 16px;
    background-color: var(--background);
    color: var(--text-primary);
-   transition: all 0.5s ease-in-out;
+   transition: background 0.5s, color 0.5s ease-in-out;
    overflow: hidden;
 }
 
 .dark-1 {
    background-color: var(--background-dark-1);
+   transition: background 0.5s ease-in-out;
 }
 
 .dark-2 {
    background-color: var(--background-dark-2);
+   transition: background 0.5s ease-in-out;
 }
 
 .hero {
