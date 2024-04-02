@@ -7,7 +7,9 @@ import styles from './Chat.module.scss';
 const Chat = () => {
    return (
       <main className={styles.chat}>
-         <Dashboard />
+         <div className={styles.dashboardContainer}>
+            <Dashboard />
+         </div>
          <div className={styles.message_textInput_container}>
             <Messages />
             <TextInput />
