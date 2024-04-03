@@ -18,6 +18,14 @@
    }
 }
 
+.burger {
+   position: absolute;
+   display: none;
+   top: 10px;
+   left: 20px;
+   cursor: pointer;
+}
+
 @media (max-width: 1080px) {
    .dashboardContainerHiding,
    .dashboardContainerShowing {
@@ -37,5 +45,9 @@
       &.dashboardContainerShowing {
          transform: translateX(0);
       }
+   }
+
+   .burger {
+      display: flex;
    }
 }

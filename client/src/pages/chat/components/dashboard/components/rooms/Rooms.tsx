@@ -9,6 +9,8 @@ import ListItemText from '@mui/material/ListItemText';
 
 import styles from './Rooms.module.scss';
 import { useState } from 'react';
+import { useAppDispatch } from '../../../../../../redux/hooks/hooks';
+import { triggerAction } from '../../../../../../redux/slices/dashboardSlice';
 
 type roomsType = {
    icon: JSX.Element;
@@ -28,9 +30,10 @@ const rooms: roomsType = [
 
 const Rooms = () => {
    const [activeIndex, setActiveIndex] = useState<number>();
-
+   const dispatch = useAppDispatch();
    const handleClick = (index: number) => {
       setActiveIndex(index);
+      dispatch(triggerAction(false));
    };
 
    return (

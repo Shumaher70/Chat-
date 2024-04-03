@@ -1,0 +1,9 @@
+.backButton {
+   font-size: 40px;
+}
+
+@media (min-width: 1080px) {
+   .backButton {
+      display: none;
+   }
+}

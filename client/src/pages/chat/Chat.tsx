@@ -6,6 +6,7 @@ import styles from './Chat.module.scss';
 import useObserver from '../../hooks/useObserver';
 import { useAppSelector } from '../../redux/hooks/hooks';
 import { dashboardTrigger } from './utils/dashboardTrigger';
+import Burger from './components/sidebarToggle/burger/Burger';
 
 const Chat = () => {
    const [width] = useObserver();
@@ -22,9 +23,14 @@ const Chat = () => {
 
    return (
       <main className={styles.chat}>
+         <div className={styles.burger}>
+            <Burger />
+         </div>
+
          <div className={`${styles.dashboardContainer} ${trigger}`}>
             <Dashboard />
          </div>
+
          <div className={styles.message_textInput_container}>
             <Messages />
             <TextInput />
