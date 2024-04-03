@@ -1,0 +1,44 @@
+.enter {
+   font-size: 40px;
+   cursor: pointer;
+}
+
+.animation {
+   animation: send 0.2s normal forwards linear;
+}
+
+.opacity {
+   opacity: 0;
+}
+
+@keyframes send {
+   0% {
+      transform: translateX(0) rotate(0deg);
+      opacity: 1;
+   }
+
+   20% {
+      transform: translateX(20px) translateY(-30px) rotate(-90deg);
+      opacity: 0.8;
+   }
+
+   40% {
+      transform: translateX(0px) translateY(-50px) rotate(-180deg);
+      opacity: 0.6;
+   }
+
+   60% {
+      transform: translateX(-30px) translateY(-70px) rotate(-130deg);
+      opacity: 0.4;
+   }
+
+   80% {
+      transform: translateX(-30px) translateY(-120px) rotate(-90deg);
+      opacity: 0.2;
+   }
+
+   100% {
+      transform: translateX(-30px) translateY(-150px) rotate(-90deg);
+      opacity: 0;
+   }
+}
