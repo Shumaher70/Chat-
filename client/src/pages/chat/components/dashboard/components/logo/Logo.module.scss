@@ -1,4 +1,4 @@
-.logo {
+.logoContainer {
    height: 60px;
    width: 100%;
    padding: 20px;
@@ -8,13 +8,13 @@
    align-items: center;
    justify-content: space-between;
 }
-p {
+.logo {
    display: static;
    font-size: 30px;
    cursor: pointer;
 }
 @media (max-width: 1080px) {
-   p {
+   .logo {
       display: none;
    }
 }

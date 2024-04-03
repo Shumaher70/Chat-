@@ -3,8 +3,8 @@ import BackButton from './backButton/BackButton';
 import UserIcon from './userIcon/UserIcon';
 const Logo = () => {
    return (
-      <div className={`${styles.logo} dark-1`}>
-         <p>Chat-</p>
+      <div className={`${styles.logoContainer} dark-1`}>
+         <p className={styles.logo}>Chat-</p>
          <UserIcon />
          <BackButton />
       </div>
