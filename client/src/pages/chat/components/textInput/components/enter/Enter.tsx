@@ -1,13 +1,14 @@
 import { VscSend } from 'react-icons/vsc';
 import styles from './Enter.module.scss';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface EnterProps {
    input: string;
    handleClearInput: () => void;
+   shiftKey: boolean;
 }
 
-const Enter = ({ input, handleClearInput }: EnterProps) => {
+const Enter = ({ input, handleClearInput, shiftKey }: EnterProps) => {
    const [keyword, setKeyword] = useState<string>('');
    const [enter, setEnter] = useState<boolean>(false);
 
@@ -22,7 +23,7 @@ const Enter = ({ input, handleClearInput }: EnterProps) => {
 
    useEffect(() => {
       const handleAnimation = () => {
-         if (keyword === 'Enter') {
+         if (keyword === 'Enter' && !shiftKey) {
             handleClearInput();
             setEnter(true);
          } else if (input !== '') {
@@ -30,7 +31,7 @@ const Enter = ({ input, handleClearInput }: EnterProps) => {
          }
       };
       handleAnimation();
-   }, [handleClearInput, input, keyword]);
+   }, [handleClearInput, input, keyword, shiftKey]);
 
    const handleClick = () => {
       setEnter(true);
