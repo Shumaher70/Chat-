@@ -1,0 +1,25 @@
+.usersMessages {
+   width: 100%;
+   padding-left: 10%;
+   padding-right: 10%;
+   display: flex;
+
+   .svgContainer {
+      padding: 0;
+      span {
+         position: relative;
+         svg {
+            position: absolute;
+            left: -8px;
+         }
+      }
+   }
+
+   div {
+      padding: 10px;
+      max-width: 45%;
+      border-radius: 0px 10px 10px 10px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+   }
+}

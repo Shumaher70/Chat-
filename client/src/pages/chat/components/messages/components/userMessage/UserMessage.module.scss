@@ -1,0 +1,27 @@
+.userMessage {
+   display: flex;
+   justify-content: end;
+   width: 100%;
+   padding-left: 10%;
+   padding-right: calc(10% + 40px);
+
+   .svgContainer {
+      padding: 0;
+      span {
+         position: relative;
+         svg {
+            position: absolute;
+            top: 0;
+            right: -8px;
+         }
+      }
+   }
+
+   div {
+      padding: 10px;
+      max-width: 45%;
+      border-radius: 10px 0px 10px 10px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+   }
+}
