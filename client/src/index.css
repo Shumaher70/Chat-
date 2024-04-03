@@ -20,8 +20,8 @@
    --background-dark-1: #434145;
    --text-primary: #f2f2f2;
    --shadow: 7px 15px 13px -4px #ffffff1b;
-   --icon-dark-2: #e1e1e1;
-   --icon-dark-1: #c8c8c8;
+   --icon-dark-2: #1d1a21;
+   --icon-dark-1: #434145;
 }
 
 body {
@@ -43,10 +43,12 @@ body {
 }
 
 .icon-dark-1 {
+   transition: background 0.5s, color 0.5s ease-in-out;
    color: var(--icon-dark-1);
 }
 
 .icon-dark-2 {
+   transition: background 0.5s, color 0.5s ease-in-out;
    color: var(--icon-dark-2);
 }
 
