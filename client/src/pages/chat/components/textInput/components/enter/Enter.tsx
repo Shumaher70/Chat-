@@ -22,20 +22,17 @@ const Enter = ({ input, handleClearInput, shiftKey }: EnterProps) => {
    }, []);
 
    useEffect(() => {
-      const handleAnimation = () => {
-         if (keyword === 'Enter' && !shiftKey) {
-            handleClearInput();
-            setEnter(true);
-         } else if (input !== '') {
-            setEnter(false);
-         }
-      };
-      handleAnimation();
+      if (keyword === 'Enter' && !shiftKey) {
+         handleClearInput();
+         setEnter(true);
+      } else if (input !== '') {
+         setEnter(false);
+      }
    }, [handleClearInput, input, keyword, shiftKey]);
 
    const handleClick = () => {
-      setEnter(true);
       handleClearInput();
+      setEnter(true);
    };
 
    return (
