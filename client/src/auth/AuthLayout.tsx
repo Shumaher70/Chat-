@@ -1,5 +1,5 @@
 import { Session, createClient } from '@supabase/supabase-js';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../redux/hooks/hooks';
 import { getAuthUserAction } from '../redux/slices/authUserSlice';

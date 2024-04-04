@@ -7,12 +7,15 @@ import useObserver from '../../hooks/useObserver';
 import { useAppSelector } from '../../redux/hooks/hooks';
 import { dashboardTrigger } from './utils/dashboardTrigger';
 import Burger from './components/sidebarToggle/burger/Burger';
+import { io } from 'socket.io-client';
 
 const Chat = () => {
    const [width] = useObserver();
    const dashboardTriggerSlice = useAppSelector(
       (state) => state.dashboardReducer.trigger
    );
+
+   const socket = io('http://localhost:4000');
 
    const trigger: string = dashboardTrigger(
       width,
