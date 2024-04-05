@@ -15,7 +15,7 @@ const UserMessage = () => {
                   version="1.1"
                   x="0px"
                   y="0px"
-                  enable-background="new 0 0 8 13"
+                  enableBackground="new 0 0 8 13"
                >
                   <title>tail-out</title>
                   <path
