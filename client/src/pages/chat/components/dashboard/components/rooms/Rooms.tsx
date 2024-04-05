@@ -8,16 +8,17 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import styles from './Rooms.module.scss';
-import { useState } from 'react';
 import { useAppDispatch } from '../../../../../../redux/hooks/hooks';
 import { triggerAction } from '../../../../../../redux/slices/dashboardSlice';
+import useAuth from '../../../../../../hooks/useAuth';
+import { socket } from '../../../../Chat';
 
 type roomsType = {
    icon: JSX.Element;
    label: string;
-}[];
+};
 
-const rooms: roomsType = [
+const rooms: roomsType[] = [
    {
       icon: <FaReact className={styles.FaReact} />,
       label: 'React',
@@ -29,29 +30,26 @@ const rooms: roomsType = [
 ];
 
 const Rooms = () => {
-   const [activeIndex, setActiveIndex] = useState<number>();
+   const auth = useAuth();
+
    const dispatch = useAppDispatch();
-   const handleClick = (index: number) => {
-      setActiveIndex(index);
+
+   const handleClick = async (room: string) => {
       dispatch(triggerAction(false));
+
+      socket.emit('room', {
+         room: room,
+         userName: auth?.user_metadata.full_name,
+      });
    };
 
    return (
       <List>
          {rooms.map((room, i) => (
-            <ListItem
-               key={i}
-               disablePadding
-               sx={{
-                  borderBottom: '1px solid rgba(99, 99, 99, 0.24)',
-                  ...(activeIndex === i && {
-                     backgroundColor: 'rgba(146, 146, 146, 0.322)',
-                  }),
-               }}
-            >
+            <ListItem key={i} disablePadding>
                <ListItemButton
                   onClick={() => {
-                     handleClick(i);
+                     handleClick(room.label);
                   }}
                >
                   <ListItemIcon>{room.icon}</ListItemIcon>
