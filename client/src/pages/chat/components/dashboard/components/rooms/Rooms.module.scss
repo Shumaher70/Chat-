@@ -1,7 +1,49 @@
+.rooms {
+   height: max-content;
+}
+
 .FaReact {
    color: #087ea4;
 }
 
 .FaNodeJs {
    color: #417e38;
+}
+
+.hiddenIn {
+   animation: hiddenAnimationIn 0.4s normal forwards ease-in;
+}
+
+.hiddenOut {
+   animation: hiddenAnimationOut 0.4s normal forwards linear;
+}
+
+@keyframes hiddenAnimationIn {
+   100% {
+      transform: translateY(-25%);
+      opacity: 0;
+      display: none;
+   }
+   50% {
+      transform: translateY(25%);
+      opacity: 1;
+   }
+}
+
+@keyframes hiddenAnimationOut {
+   0% {
+      transform: translateY(-25%);
+      opacity: 0;
+      display: none;
+   }
+
+   50% {
+      transform: translateY(25%);
+      opacity: 0.5;
+   }
+
+   100% {
+      transform: translateY(0%);
+      opacity: 1;
+   }
 }

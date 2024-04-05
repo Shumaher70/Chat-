@@ -8,10 +8,19 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import styles from './Rooms.module.scss';
-import { useAppDispatch } from '../../../../../../redux/hooks/hooks';
+import {
+   useAppDispatch,
+   useAppSelector,
+} from '../../../../../../redux/hooks/hooks';
 import { triggerAction } from '../../../../../../redux/slices/dashboardSlice';
 import useAuth from '../../../../../../hooks/useAuth';
 import { socket } from '../../../../Chat';
+import { useState } from 'react';
+import Room from './components/room/Room';
+import {
+   changeRoomAction,
+   getRoomAction,
+} from '../../../../../../redux/slices/roomsSlice';
 
 type roomsType = {
    icon: JSX.Element;
@@ -31,33 +40,51 @@ const rooms: roomsType[] = [
 
 const Rooms = () => {
    const auth = useAuth();
-
    const dispatch = useAppDispatch();
+   const roomsSlice = useAppSelector((state) => state.roomReducer.trigger);
 
    const handleClick = async (room: string) => {
       dispatch(triggerAction(false));
 
+      dispatch(getRoomAction(room));
       socket.emit('room', {
          room: room,
          userName: auth?.user_metadata.full_name,
+         avatar_url: auth?.user_metadata.avatar_url,
       });
+
+      dispatch(changeRoomAction(true));
    };
 
    return (
-      <List>
-         {rooms.map((room, i) => (
-            <ListItem key={i} disablePadding>
-               <ListItemButton
-                  onClick={() => {
-                     handleClick(room.label);
-                  }}
-               >
-                  <ListItemIcon>{room.icon}</ListItemIcon>
-                  <ListItemText primary={room.label} />
-               </ListItemButton>
-            </ListItem>
-         ))}
-      </List>
+      <div className={styles.rooms}>
+         {roomsSlice && (
+            <div
+               className={`${roomsSlice ? styles.hiddenOut : styles.hiddenIn}`}
+            >
+               <Room />
+            </div>
+         )}
+
+         {!roomsSlice && (
+            <List
+               className={`${roomsSlice ? styles.hiddenIn : styles.hiddenOut}`}
+            >
+               {rooms.map((room, i) => (
+                  <ListItem key={i} disablePadding>
+                     <ListItemButton
+                        onClick={() => {
+                           handleClick(room.label);
+                        }}
+                     >
+                        <ListItemIcon>{room.icon}</ListItemIcon>
+                        <ListItemText primary={room.label} />
+                     </ListItemButton>
+                  </ListItem>
+               ))}
+            </List>
+         )}
+      </div>
    );
 };
 
