@@ -21,11 +21,12 @@ const Logo = () => {
 
    return (
       <div className={`${styles.logoContainer} dark-1`}>
-         {!trigger && <p className={styles.logo}>Chat-</p>}
-         <div className={styles.backContainer} onClick={handleClick}>
-            {trigger && <p className={styles.logo}>{room}</p>}
-            {trigger && <RiArrowGoBackLine className={styles.back} />}
-         </div>
+         {trigger && (
+            <div className={styles.backContainer} onClick={handleClick}>
+               {<p className={styles.logo}>{room}</p>}
+               {<RiArrowGoBackLine className={styles.back} />}
+            </div>
+         )}
          <UserIcon />
          <BackButton />
       </div>

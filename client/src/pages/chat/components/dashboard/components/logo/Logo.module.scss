@@ -1,5 +1,4 @@
 .logoContainer {
-   height: max-content;
    width: 100%;
    padding: 20px;
    text-transform: uppercase;
@@ -7,27 +6,16 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
-}
-.logo {
-   display: static;
-   font-size: 30px;
-   cursor: pointer;
-}
 
-.backContainer {
-   display: flex;
-   gap: 10px;
-   align-items: center;
-   cursor: pointer;
-}
+   .backContainer {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      cursor: pointer;
+   }
 
-.back {
-   height: 30px;
-   width: 30px;
-}
-
-@media (max-width: 1080px) {
-   .logo {
-      display: none;
+   .back {
+      height: 30px;
+      width: 30px;
    }
 }
