@@ -2,12 +2,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface roomsType {
    trigger: boolean;
-   room: string;
+   room: string | null;
 }
 
 const initialState: roomsType = {
    trigger: false,
-   room: '',
+   room: null,
 };
 
 const roomsSlice = createSlice({

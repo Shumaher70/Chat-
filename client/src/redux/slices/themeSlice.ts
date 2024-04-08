@@ -4,14 +4,8 @@ interface ThemeType {
    theme: string;
 }
 
-type Theme = 'dark' | 'light';
-
-const themeStorage: Theme = localStorage.getItem('LightMode')
-   ? (localStorage.getItem('LightMode') as Theme)
-   : 'dark';
-
 const initialState: ThemeType = {
-   theme: themeStorage,
+   theme: 'dark',
 };
 
 const themeSlice = createSlice({
