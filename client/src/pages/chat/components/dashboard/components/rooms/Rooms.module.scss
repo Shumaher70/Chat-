@@ -1,5 +1,8 @@
 .rooms {
-   height: max-content;
+   height: 100%;
+   width: 100%;
+   display: flex;
+   padding-bottom: 80px;
 }
 
 .FaReact {
@@ -15,7 +18,9 @@
 }
 
 .hiddenOut {
+   width: 100%;
    animation: hiddenAnimationOut 0.4s normal forwards linear;
+   overflow-y: auto;
 }
 
 @keyframes hiddenAnimationIn {

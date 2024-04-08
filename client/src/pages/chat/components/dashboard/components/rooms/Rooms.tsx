@@ -15,7 +15,6 @@ import {
 import { triggerAction } from '../../../../../../redux/slices/dashboardSlice';
 import useAuth from '../../../../../../hooks/useAuth';
 import { socket } from '../../../../Chat';
-import { useState } from 'react';
 import Room from './components/room/Room';
 import {
    changeRoomAction,
@@ -68,6 +67,9 @@ const Rooms = () => {
 
          {!roomsSlice && (
             <List
+               sx={{
+                  width: '100%',
+               }}
                className={`${roomsSlice ? styles.hiddenIn : styles.hiddenOut}`}
             >
                {rooms.map((room, i) => (
