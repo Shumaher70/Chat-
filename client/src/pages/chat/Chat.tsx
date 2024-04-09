@@ -6,8 +6,8 @@ import styles from './Chat.module.scss';
 import useObserver from '../../hooks/useObserver';
 import { useAppSelector } from '../../redux/hooks/hooks';
 import { dashboardTrigger } from './utils/dashboardTrigger';
-import Burger from './components/sidebarToggle/burger/Burger';
 import { io } from 'socket.io-client';
+import Header from './components/header/Header';
 
 export const socket = io('http://localhost:4000');
 const Chat = () => {
@@ -25,15 +25,12 @@ const Chat = () => {
 
    return (
       <main className={styles.chat}>
-         <div className={styles.burger}>
-            <Burger />
-         </div>
-
          <div className={`${styles.dashboardContainer} ${trigger}`}>
             <Dashboard />
          </div>
 
          <div className={styles.message_textInput_container}>
+            <Header />
             <Messages />
             <TextInput />
          </div>
