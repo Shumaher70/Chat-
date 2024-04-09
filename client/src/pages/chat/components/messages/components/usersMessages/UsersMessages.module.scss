@@ -5,22 +5,50 @@
    display: flex;
    height: max-content;
 
-   .svgContainer {
-      padding: 0;
-      span {
-         position: relative;
-         svg {
-            position: absolute;
-            left: -8px;
+   .wrapperContainerMessages {
+      display: flex;
+      max-width: 45%;
+
+      .svgContainer {
+         display: flex;
+
+         span {
+            display: flex;
          }
       }
+
+      .messagesContainer {
+         padding: 10px;
+         border-radius: 10px 0px 10px 10px;
+         word-break: break-all;
+      }
+   }
+}
+
+.hidden {
+   animation: hiddenAnimation 0.4s normal forwards linear;
+}
+
+.showing {
+   animation: showingAnimation 0.4s normal forwards linear;
+}
+
+@keyframes hiddenAnimation {
+   100% {
+      transform: translateX(-200%);
+      opacity: 0;
+      display: none;
+   }
+}
+
+@keyframes showingAnimation {
+   0% {
+      transform: translateX(-200%);
+      opacity: 0;
    }
 
-   div {
-      padding: 10px;
-      max-width: 45%;
-      border-radius: 0px 10px 10px 10px;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+   100% {
+      transform: translateX(0%);
+      opacity: 1;
    }
 }

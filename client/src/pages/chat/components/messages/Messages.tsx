@@ -20,8 +20,8 @@ const Messages = () => {
             <LightMode />
          </div>
          <div className={styles.messages}>
-            <UserMessage />
-            <UsersMessages />
+            <UsersMessages>users</UsersMessages>
+            <UserMessage>user</UserMessage>
          </div>
       </div>
    );
