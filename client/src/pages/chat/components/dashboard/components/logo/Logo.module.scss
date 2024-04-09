@@ -7,15 +7,9 @@
    align-items: center;
    justify-content: space-between;
 
-   .backContainer {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      cursor: pointer;
-   }
-
    .back {
       height: 30px;
       width: 30px;
+      cursor: pointer;
    }
 }

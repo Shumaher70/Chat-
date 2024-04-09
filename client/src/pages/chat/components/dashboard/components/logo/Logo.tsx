@@ -11,7 +11,7 @@ import { RiArrowGoBackLine } from 'react-icons/ri';
 import styles from './Logo.module.scss';
 import { changeRoomAction } from '../../../../../../redux/slices/roomsSlice';
 const Logo = () => {
-   const { trigger, room } = useAppSelector((state) => state.roomReducer);
+   const { trigger } = useAppSelector((state) => state.roomReducer);
 
    const dispatch = useAppDispatch();
 
@@ -22,10 +22,7 @@ const Logo = () => {
    return (
       <div className={`${styles.logoContainer} dark-1`}>
          {trigger && (
-            <div className={styles.backContainer} onClick={handleClick}>
-               {<p className={styles.logo}>{room}</p>}
-               {<RiArrowGoBackLine className={styles.back} />}
-            </div>
+            <RiArrowGoBackLine className={styles.back} onClick={handleClick} />
          )}
          <UserIcon />
          <BackButton />
