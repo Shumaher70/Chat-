@@ -1,12 +1,15 @@
 import { TextField } from '@mui/material';
 import styles from './TextInput.module.scss';
 import useCustomTextInputTheme from './useCustomTextInputTheme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Enter from './components/enter/Enter';
+import { useAppSelector } from '../../../../redux/hooks/hooks';
+
 const TextInput = () => {
    const [input, setInput] = useState<string>('');
    const [shiftKey, setShiftKey] = useState<boolean>(false);
    const { theme } = useCustomTextInputTheme();
+   const roomSlice = useAppSelector((state) => state.roomReducer.trigger);
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setInput(event.target.value);
@@ -16,8 +19,18 @@ const TextInput = () => {
       setInput('');
    };
 
+   useEffect(() => {
+      if (!roomSlice) {
+         setInput('');
+      }
+   }, [roomSlice]);
+
    return (
-      <div className={`${styles.textInput} dark-2`}>
+      <div
+         className={`${styles.textInput} dark-2 ${
+            roomSlice ? styles.showing : styles.hidden
+         }`}
+      >
          <div className={`${styles.inputContainer}`}>
             <TextField
                multiline
