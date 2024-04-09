@@ -14,15 +14,21 @@ const Room = () => {
    const [users, setUsers] = useState<usersType[]>([]);
 
    useEffect(() => {
+      socket.emit('room');
+
       socket.on('room', (data: usersType[]) => {
          setUsers(data);
       });
+
+      return () => {
+         socket.off('room');
+      };
    }, []);
 
    return (
       <div className={styles.room}>
-         {users.map((user) => (
-            <div className={styles.user} key={user.id}>
+         {users.map((user, index) => (
+            <div className={styles.user} key={index}>
                <div className={styles.avatar}>
                   {user.avatar_url && (
                      <img

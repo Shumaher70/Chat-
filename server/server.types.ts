@@ -1,9 +1,12 @@
 export type roomType = {
    room: string;
    userName: string;
+   avatar_url: string;
 };
 
-export type countUserInRoomType = {
+export type allUserType = {
+   id: string;
    room: string;
-   countUsers: number;
+   userName: string;
+   avatar_url: string;
 };
