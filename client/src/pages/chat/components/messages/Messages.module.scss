@@ -1,4 +1,5 @@
 .messagesContainer {
+   position: relative;
    display: flex;
    justify-content: center;
    height: 100%;
@@ -14,8 +15,48 @@
 
    .messages {
       width: 100%;
-      padding-top: 60px;
+      padding-top: 80px;
       padding-bottom: 10px;
       overflow-y: auto;
+   }
+
+   .roomName {
+      position: absolute;
+      transform: translateX(-50%);
+      top: 20px;
+   }
+}
+
+.showing {
+   animation: showingAnimation 0.4s normal forwards linear;
+}
+
+.hidden {
+   animation: hiddenAnimation 0.4s normal forwards linear;
+}
+
+@keyframes showingAnimation {
+   0% {
+      position: absolute;
+      top: 0;
+      transform: translateY(-100%) translateX(-50%);
+      opacity: 0;
+   }
+
+   100% {
+      position: absolute;
+      top: 20px;
+      transform: translateY(0%) translateX(-50%);
+      opacity: 1;
+   }
+}
+
+@keyframes hiddenAnimation {
+   100% {
+      position: absolute;
+      display: hidden;
+      top: 20px;
+      transform: translateY(-100%) translateX(-50%);
+      opacity: 0;
    }
 }
