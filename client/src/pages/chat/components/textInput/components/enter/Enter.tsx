@@ -1,6 +1,8 @@
 import { VscSend } from 'react-icons/vsc';
 import styles from './Enter.module.scss';
-import { useEffect, useState } from 'react';
+
+import useKeywordEvent from './hooks/useKeywordEvent';
+import useInputEffect from './hooks/useInputEffect';
 
 interface EnterProps {
    input: string;
@@ -9,31 +11,13 @@ interface EnterProps {
 }
 
 const Enter = ({ input, handleClearInput, shiftKey }: EnterProps) => {
-   const [keyword, setKeyword] = useState<string>('');
-   const [enter, setEnter] = useState<boolean>(false);
-
-   useEffect(() => {
-      const handleKeyword = (event: KeyboardEvent) => {
-         setKeyword(event.key);
-      };
-      window.addEventListener('keydown', handleKeyword);
-      return () => window.removeEventListener('keydown', handleKeyword);
-      //eslint-disable-next-line
-   }, []);
-
-   useEffect(() => {
-      if (keyword === 'Enter' && !shiftKey) {
-         handleClearInput();
-         setEnter(true);
-      } else if (input !== '') {
-         setEnter(false);
-      }
-   }, [handleClearInput, input, keyword, shiftKey]);
-
-   const handleClick = () => {
-      handleClearInput();
-      setEnter(true);
-   };
+   const keyword = useKeywordEvent();
+   const { enter, handleClick } = useInputEffect(
+      input,
+      handleClearInput,
+      shiftKey,
+      keyword
+   );
 
    return (
       <VscSend
