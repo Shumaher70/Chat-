@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import styles from './TextInput.module.scss';
 import useCustomTextInputTheme from './useCustomTextInputTheme';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Enter from './components/enter/Enter';
 import { useAppSelector } from '../../../../redux/hooks/hooks';
 
@@ -11,12 +11,27 @@ const TextInput = () => {
    const { theme } = useCustomTextInputTheme();
    const roomSlice = useAppSelector((state) => state.roomReducer.trigger);
 
+   const inputMemo = useMemo(() => {
+      return input;
+   }, [input]);
+
+   const shiftKeyMemo = useMemo(() => {
+      return shiftKey;
+   }, [shiftKey]);
+
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setInput(event.target.value);
    };
 
    const handleClearInput = () => {
       setInput('');
+   };
+
+   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+         e.preventDefault();
+      }
+      setShiftKey(e.shiftKey);
    };
 
    useEffect(() => {
@@ -35,18 +50,18 @@ const TextInput = () => {
             <TextField
                multiline
                maxRows={4}
-               minRows={2}
+               minRows={1}
                label="Enter your message"
                variant="filled"
                sx={theme}
                onChange={handleChange}
                value={input}
-               onKeyDown={(e) => setShiftKey(e.shiftKey)}
+               onKeyDown={handleKeyDown}
             />
             <Enter
-               input={input}
+               input={inputMemo}
                handleClearInput={handleClearInput}
-               shiftKey={shiftKey}
+               shiftKey={shiftKeyMemo}
             />
          </div>
       </div>
