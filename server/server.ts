@@ -3,7 +3,7 @@ import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
 
-import { allUserType, roomType } from './server.types';
+import { allUserType, messageType, roomType } from './server.types';
 
 const app = express();
 
@@ -13,6 +13,7 @@ const server = http.createServer(app);
 
 let chatRoom: string = '';
 let allUsers: allUserType[] = [];
+let allMessages: messageType[] = [];
 
 const io = new Server(server, {
    cors: {
@@ -44,6 +45,16 @@ io.on('connection', (socket) => {
       });
 
       const usersInRoom = allUsers.filter((room) => chatRoom === room.room);
+
+      socket.on('message', (data: messageType) => {
+         allMessages.push(data);
+
+         const roomMessages = allMessages.filter(
+            (message) => chatRoom === message.room
+         );
+
+         io.to(chatRoom).emit('message', roomMessages);
+      });
 
       io.to(chatRoom).emit('room', usersInRoom);
    });

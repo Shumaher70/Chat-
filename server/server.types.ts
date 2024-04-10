@@ -10,3 +10,11 @@ export type allUserType = {
    userName: string;
    avatar_url: string;
 };
+
+export type messageType = {
+   id: string;
+   room: string;
+   userName: string;
+   avatar_url: string;
+   message: string;
+};
