@@ -3,6 +3,7 @@ import styles from './Messages.module.scss';
 import UserMessage from './components/userMessage/UserMessage';
 import UsersMessages from './components/usersMessages/UsersMessages';
 import { socket } from '../../Chat';
+import useAuth from '../../../../hooks/useAuth';
 
 interface MessageTypes {
    id: string;
@@ -13,18 +14,21 @@ interface MessageTypes {
 }
 
 const Messages = () => {
+   const auth = useAuth();
    const [messages, setMessages] = useState<MessageTypes[]>([]);
    const [socketId, setSocketId] = useState<string>('');
 
    useEffect(() => {
       socket.on('message', (message: MessageTypes[]) => {
-         setSocketId(socket.id!);
+         setSocketId(auth?.id!);
          setMessages(message);
       });
 
       return () => {
          socket.off('message');
       };
+
+      //eslint-disable-next-line
    }, []);
 
    return (

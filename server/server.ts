@@ -25,38 +25,51 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
    socket.on('room', () => {
       const usersInRoom = allUsers.filter((user) => chatRoom === user.room);
-
       socket.emit('room', usersInRoom);
    });
 
    socket.on('joinRoom', (data: roomType) => {
-      const { room, userName, avatar_url } = data;
-
-      socket.join(room);
+      const { room, userName, avatar_url, userId } = data;
 
       chatRoom = room;
-      const name = userName ? userName : `user${socket.id.slice(0, 5)}`;
+      const name = userName ? userName : `user${userId.slice(0, 5)}`;
 
-      allUsers.push({
-         id: socket.id,
-         room,
-         userName: name,
-         avatar_url: avatar_url,
-      });
+      const existingUser = allUsers.find(
+         (user) => user.id === userId && user.room === room
+      );
+
+      if (existingUser) {
+         existingUser.userName = name;
+         existingUser.avatar_url = avatar_url;
+      } else {
+         allUsers.push({
+            id: userId,
+            room,
+            userName: name,
+            avatar_url: avatar_url,
+         });
+      }
 
       const usersInRoom = allUsers.filter((room) => chatRoom === room.room);
 
-      socket.on('message', (data: messageType) => {
-         allMessages.push(data);
-
-         const roomMessages = allMessages.filter(
-            (message) => chatRoom === message.room
-         );
-
-         io.to(chatRoom).emit('message', roomMessages);
-      });
-
       io.to(chatRoom).emit('room', usersInRoom);
+   });
+
+   socket.on('roomMessages', () => {
+      const roomMessages = allMessages.filter(
+         (message) => chatRoom === message.room
+      );
+      io.emit('message', roomMessages);
+   });
+
+   socket.on('message', (data: messageType) => {
+      allMessages.push(data);
+
+      const roomMessages = allMessages.filter(
+         (message) => chatRoom === message.room
+      );
+
+      io.emit('message', roomMessages);
    });
 });
 

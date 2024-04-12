@@ -42,15 +42,19 @@ const Rooms = () => {
    const dispatch = useAppDispatch();
    const roomsSlice = useAppSelector((state) => state.roomReducer.trigger);
 
-   const handleClick = async (room: string) => {
+   const handleClick = (room: string) => {
       dispatch(triggerAction(false));
 
       dispatch(getRoomAction(room));
+
       socket.emit('joinRoom', {
+         userId: auth?.id,
          room: room,
          userName: auth?.user_metadata.full_name,
          avatar_url: auth?.user_metadata.avatar_url,
       });
+
+      socket.emit('roomMessages');
 
       dispatch(changeRoomAction(true));
    };

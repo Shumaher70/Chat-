@@ -2,6 +2,7 @@ export type roomType = {
    room: string;
    userName: string;
    avatar_url: string;
+   userId: string;
 };
 
 export type allUserType = {

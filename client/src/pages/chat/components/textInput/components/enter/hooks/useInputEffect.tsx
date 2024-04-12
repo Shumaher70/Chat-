@@ -17,7 +17,7 @@ const useInputEffect = (
       if (keyword === 'Enter' && !shiftKey) {
          if (input !== '') {
             socket.emit('message', {
-               id: socket.id,
+               id: auth?.id,
                room: room,
                userName: auth?.user_metadata.full_name,
                avatar_url: auth?.user_metadata.avatar_url,
@@ -31,6 +31,7 @@ const useInputEffect = (
          setEnter(false);
       }
    }, [
+      auth?.id,
       auth?.user_metadata.avatar_url,
       auth?.user_metadata.full_name,
       handleClearInput,
@@ -43,7 +44,7 @@ const useInputEffect = (
    const handleClick = () => {
       if (input !== '') {
          socket.emit('message', {
-            id: socket.id,
+            id: auth?.id,
             room: room,
             userName: auth?.user_metadata.full_name,
             avatar_url: auth?.user_metadata.avatar_url,
