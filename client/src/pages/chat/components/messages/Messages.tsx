@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styles from './Messages.module.scss';
 import UserMessage from './components/userMessage/UserMessage';
 import UsersMessages from './components/usersMessages/UsersMessages';
@@ -16,11 +16,11 @@ interface MessageTypes {
 const Messages = () => {
    const [messages, setMessages] = useState<MessageTypes[]>([]);
    const [socketId, setSocketId] = useState<string>('');
-   const { room, trigger } = useAppSelector((state) => state.roomReducer);
+   const { trigger } = useAppSelector((state) => state.roomReducer);
+   const messageRef = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
       socket.on('message', (message: MessageTypes[]) => {
-         setSocketId(socket.id!);
          setMessages(message);
       });
 
@@ -35,25 +35,35 @@ const Messages = () => {
       socket.emit('roomMessages');
    }, []);
 
+   useEffect(() => {
+      setSocketId(socket.id!);
+   }, []);
+
+   useEffect(() => {
+      if (socketId) {
+         messageRef.current?.scroll({ behavior: 'smooth' });
+      }
+   }, [socketId]);
+
    return (
       <>
          {messages && trigger && (
-            <div className={styles.messagesContainer}>
+            <div ref={messageRef} className={styles.messagesContainer}>
                <div className={styles.messages}>
                   {messages.map((message: MessageTypes, index) => {
-                     if (message.id === socketId) {
-                        return (
-                           <UserMessage key={index}>
-                              {message.message}
-                           </UserMessage>
-                        );
-                     } else {
-                        return (
-                           <UsersMessages key={index + index}>
-                              {message.message}
-                           </UsersMessages>
-                        );
-                     }
+                     return (
+                        <React.Fragment key={message.message + index}>
+                           {message.id === socketId ? (
+                              <UserMessage key={index}>
+                                 {message.message}
+                              </UserMessage>
+                           ) : (
+                              <UsersMessages key={message.message + index}>
+                                 {message.message}
+                              </UsersMessages>
+                           )}
+                        </React.Fragment>
+                     );
                   })}
                </div>
             </div>
