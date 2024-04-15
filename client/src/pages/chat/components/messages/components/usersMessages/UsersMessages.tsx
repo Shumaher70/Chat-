@@ -12,7 +12,7 @@ const UsersMessages = ({ children }: UserMessagesProps) => {
       <div className={`${styles.usersMessages}`}>
          <div
             className={`${styles.wrapperContainerMessages} ${
-               trigger ? styles.showing : styles.hidden
+               trigger && styles.showing
             }`}
          >
             <div className={`${styles.svgContainer}`}>

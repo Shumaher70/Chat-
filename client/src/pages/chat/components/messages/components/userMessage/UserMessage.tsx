@@ -11,7 +11,7 @@ const UserMessage = ({ children }: UserMessageProps) => {
       <div className={styles.userMessage}>
          <div
             className={`${styles.wrapperContainerMessage} ${
-               trigger ? styles.showing : styles.hidden
+               trigger && styles.showing
             }`}
          >
             <div className={`${styles.messageContainer} dark-1`}>

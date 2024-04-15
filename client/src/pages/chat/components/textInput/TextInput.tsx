@@ -9,7 +9,7 @@ const TextInput = () => {
    const [input, setInput] = useState<string>('');
    const [shiftKey, setShiftKey] = useState<boolean>(false);
    const { theme } = useCustomTextInputTheme();
-   const roomSlice = useAppSelector((state) => state.roomReducer.trigger);
+   const { trigger } = useAppSelector((state) => state.roomReducer);
 
    const inputMemo = useMemo(() => {
       return input;
@@ -35,36 +35,40 @@ const TextInput = () => {
    };
 
    useEffect(() => {
-      if (!roomSlice) {
+      if (!trigger) {
          setInput('');
       }
-   }, [roomSlice]);
+   }, [trigger]);
 
    return (
-      <div
-         className={`${styles.textInput} dark-2 ${
-            roomSlice ? styles.showing : styles.hidden
-         }`}
-      >
-         <div className={`${styles.inputContainer}`}>
-            <TextField
-               multiline
-               maxRows={4}
-               minRows={1}
-               label="Enter your message"
-               variant="filled"
-               sx={theme}
-               onChange={handleChange}
-               value={input}
-               onKeyDown={handleKeyDown}
-            />
-            <Enter
-               input={inputMemo}
-               handleClearInput={handleClearInput}
-               shiftKey={shiftKeyMemo}
-            />
-         </div>
-      </div>
+      <>
+         {trigger && (
+            <div
+               className={`${styles.textInput} dark-2 ${
+                  trigger && styles.showing
+               }`}
+            >
+               <div className={`${styles.inputContainer}`}>
+                  <TextField
+                     multiline
+                     maxRows={4}
+                     minRows={1}
+                     label="Enter your message"
+                     variant="filled"
+                     sx={theme}
+                     onChange={handleChange}
+                     value={input}
+                     onKeyDown={handleKeyDown}
+                  />
+                  <Enter
+                     input={inputMemo}
+                     handleClearInput={handleClearInput}
+                     shiftKey={shiftKeyMemo}
+                  />
+               </div>
+            </div>
+         )}
+      </>
    );
 };
 

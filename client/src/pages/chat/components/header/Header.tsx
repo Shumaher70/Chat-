@@ -8,13 +8,11 @@ const Header = () => {
 
    return (
       <div className={`${styles.header}`}>
-         <h1
-            className={`${styles.title} ${
-               trigger ? styles.showing : styles.hidden
-            }`}
-         >
-            {room}
-         </h1>
+         {trigger && (
+            <h1 className={`${styles.title} ${trigger && styles.showing}`}>
+               {room}
+            </h1>
+         )}
 
          <div className={styles.burger}>
             <Burger />

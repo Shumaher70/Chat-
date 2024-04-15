@@ -14,20 +14,9 @@
       gap: 5px;
    }
 }
-.hidden {
-   animation: hiddenAnimation 0.4s normal forwards linear;
-}
 
 .showing {
    animation: showingAnimation 0.4s normal forwards linear;
-}
-
-@keyframes hiddenAnimation {
-   100% {
-      transform: translateY(110%);
-      display: none;
-      opacity: 0;
-   }
 }
 
 @keyframes showingAnimation {

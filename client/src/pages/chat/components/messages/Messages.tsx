@@ -3,6 +3,7 @@ import styles from './Messages.module.scss';
 import UserMessage from './components/userMessage/UserMessage';
 import UsersMessages from './components/usersMessages/UsersMessages';
 import { socket } from '../../Chat';
+import { useAppSelector } from '../../../../redux/hooks/hooks';
 
 interface MessageTypes {
    id: string;
@@ -15,6 +16,7 @@ interface MessageTypes {
 const Messages = () => {
    const [messages, setMessages] = useState<MessageTypes[]>([]);
    const [socketId, setSocketId] = useState<string>('');
+   const { room, trigger } = useAppSelector((state) => state.roomReducer);
 
    useEffect(() => {
       socket.on('message', (message: MessageTypes[]) => {
@@ -35,7 +37,7 @@ const Messages = () => {
 
    return (
       <>
-         {messages && (
+         {messages && trigger && (
             <div className={styles.messagesContainer}>
                <div className={styles.messages}>
                   {messages.map((message: MessageTypes, index) => {

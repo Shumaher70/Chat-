@@ -32,10 +32,6 @@
    animation: showingAnimation 0.4s normal forwards linear;
 }
 
-.hidden {
-   animation: hiddenAnimation 0.4s normal forwards linear;
-}
-
 @media (max-width: 1080px) {
    .header {
       justify-content: space-between;
@@ -60,14 +56,5 @@
    100% {
       transform: translateY(0%);
       opacity: 1;
-   }
-}
-
-@keyframes hiddenAnimation {
-   100% {
-      display: hidden;
-      right: 50%;
-      transform: translateY(-100%);
-      opacity: 0;
    }
 }
