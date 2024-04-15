@@ -17,7 +17,7 @@ const useInputEffect = (
       if (keyword === 'Enter' && !shiftKey) {
          if (input !== '') {
             socket.emit('message', {
-               id: auth?.id,
+               id: socket.id,
                room: room,
                userName: auth?.user_metadata.full_name,
                avatar_url: auth?.user_metadata.avatar_url,

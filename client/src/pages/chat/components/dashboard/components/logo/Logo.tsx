@@ -10,12 +10,15 @@ import { RiArrowGoBackLine } from 'react-icons/ri';
 
 import styles from './Logo.module.scss';
 import { changeRoomAction } from '../../../../../../redux/slices/roomsSlice';
+import { socket } from '../../../../Chat';
 const Logo = () => {
-   const { trigger } = useAppSelector((state) => state.roomReducer);
+   const { trigger, room } = useAppSelector((state) => state.roomReducer);
 
    const dispatch = useAppDispatch();
 
    const handleClick = () => {
+      const id = socket.id;
+      socket.emit('leaveRoom', { room, id });
       dispatch(changeRoomAction(false));
    };
 

@@ -3,7 +3,6 @@ import styles from './Messages.module.scss';
 import UserMessage from './components/userMessage/UserMessage';
 import UsersMessages from './components/usersMessages/UsersMessages';
 import { socket } from '../../Chat';
-import useAuth from '../../../../hooks/useAuth';
 
 interface MessageTypes {
    id: string;
@@ -14,13 +13,12 @@ interface MessageTypes {
 }
 
 const Messages = () => {
-   const auth = useAuth();
    const [messages, setMessages] = useState<MessageTypes[]>([]);
    const [socketId, setSocketId] = useState<string>('');
 
    useEffect(() => {
       socket.on('message', (message: MessageTypes[]) => {
-         setSocketId(auth?.id!);
+         setSocketId(socket.id!);
          setMessages(message);
       });
 

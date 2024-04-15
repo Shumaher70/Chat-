@@ -48,7 +48,7 @@ const Rooms = () => {
       dispatch(getRoomAction(room));
 
       socket.emit('joinRoom', {
-         userId: auth?.id,
+         userId: socket.id,
          room: room,
          userName: auth?.user_metadata.full_name,
          avatar_url: auth?.user_metadata.avatar_url,
