@@ -18,4 +18,5 @@ export type messageType = {
    userName: string;
    avatar_url: string;
    message: string;
+   atData: string;
 };

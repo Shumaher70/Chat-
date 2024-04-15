@@ -1,12 +1,15 @@
 import { useAppSelector } from '../../../../../../redux/hooks/hooks';
+import { dateToTime } from '../../../../../../utils/dateToTime';
 import styles from './UserMessage.module.scss';
 
 interface UserMessageProps {
-   children: React.ReactNode;
+   message: string;
+   time: string;
 }
 
-const UserMessage = ({ children }: UserMessageProps) => {
+const UserMessage = ({ message, time }: UserMessageProps) => {
    const { trigger } = useAppSelector((state) => state.roomReducer);
+
    return (
       <div className={styles.userMessage}>
          <div
@@ -15,7 +18,8 @@ const UserMessage = ({ children }: UserMessageProps) => {
             }`}
          >
             <div className={`${styles.messageContainer} dark-1`}>
-               <p>{children}</p>
+               <p>{message}</p>
+               <p className={styles.time}>{dateToTime(time)}</p>
             </div>
 
             <div className={`${styles.svgContainer}`}>

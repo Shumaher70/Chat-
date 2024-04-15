@@ -18,9 +18,21 @@
       }
 
       .messagesContainer {
+         display: flex;
+         flex-direction: row-reverse;
          padding: 10px;
          border-radius: 0px 10px 10px 10px;
          word-break: break-all;
+
+         .time {
+            position: relative;
+            right: 5px;
+            bottom: -7px;
+            display: flex;
+            font-size: 12px;
+            height: 100%;
+            align-items: end;
+         }
       }
    }
 }

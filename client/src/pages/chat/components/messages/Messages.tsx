@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './Messages.module.scss';
 import UserMessage from './components/userMessage/UserMessage';
 import UsersMessages from './components/usersMessages/UsersMessages';
@@ -11,6 +11,7 @@ interface MessageTypes {
    userName: string;
    avatar_url: string;
    message: string;
+   atDate: string;
 }
 
 const Messages = () => {
@@ -40,27 +41,33 @@ const Messages = () => {
    }, []);
 
    useEffect(() => {
-      if (socketId) {
-         messageRef.current?.scroll({ behavior: 'smooth' });
-      }
-   }, [socketId]);
+      if (messages.length > 0)
+         if (
+            messageRef.current &&
+            messages[messages.length - 1].id === socketId
+         ) {
+            messageRef.current.scrollTop = messageRef.current.scrollHeight;
+         }
+   }, [messages, socketId]);
 
    return (
       <>
          {messages && trigger && (
-            <div ref={messageRef} className={styles.messagesContainer}>
-               <div className={styles.messages}>
+            <div className={styles.messagesContainer}>
+               <div ref={messageRef} className={styles.messages}>
                   {messages.map((message: MessageTypes, index) => {
                      return (
                         <React.Fragment key={message.message + index}>
                            {message.id === socketId ? (
-                              <UserMessage key={index}>
-                                 {message.message}
-                              </UserMessage>
+                              <UserMessage
+                                 time={message.atDate}
+                                 message={message.message}
+                              />
                            ) : (
-                              <UsersMessages key={message.message + index}>
-                                 {message.message}
-                              </UsersMessages>
+                              <UsersMessages
+                                 time={message.atDate}
+                                 message={message.message}
+                              />
                            )}
                         </React.Fragment>
                      );
