@@ -29,6 +29,10 @@ const Messages = () => {
       //eslint-disable-next-line
    }, []);
 
+   useEffect(() => {
+      socket.emit('roomMessages');
+   }, []);
+
    return (
       <>
          {messages && (
