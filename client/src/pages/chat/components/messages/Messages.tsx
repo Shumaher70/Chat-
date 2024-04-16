@@ -16,7 +16,6 @@ interface MessageTypes {
 
 const Messages = () => {
    const [messages, setMessages] = useState<MessageTypes[]>([]);
-   const [socketId, setSocketId] = useState<string>('');
    const { trigger } = useAppSelector((state) => state.roomReducer);
    const messageRef = useRef<HTMLDivElement>(null);
 
@@ -37,18 +36,22 @@ const Messages = () => {
    }, []);
 
    useEffect(() => {
-      setSocketId(socket.id!);
-   }, []);
+      if (messageRef.current && messageRef.current) {
+         messageRef.current.scrollTop = messageRef.current.scrollHeight;
+      }
+
+      //eslint-disable-next-line
+   }, [socket.id]);
 
    useEffect(() => {
       if (messages.length > 0)
          if (
             messageRef.current &&
-            messages[messages.length - 1].id === socketId
+            messages[messages.length - 1].id === socket.id
          ) {
             messageRef.current.scrollTop = messageRef.current.scrollHeight;
          }
-   }, [messages, socketId]);
+   }, [messages]);
 
    return (
       <>
@@ -58,7 +61,7 @@ const Messages = () => {
                   {messages.map((message: MessageTypes, index) => {
                      return (
                         <React.Fragment key={message.message + index}>
-                           {message.id === socketId ? (
+                           {message.id === socket.id ? (
                               <UserMessage
                                  time={message.atDate}
                                  message={message.message}
