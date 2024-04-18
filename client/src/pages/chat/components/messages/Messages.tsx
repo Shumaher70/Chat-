@@ -18,28 +18,12 @@ const Messages = () => {
    const [messages, setMessages] = useState<MessageTypes[]>([]);
    const { trigger } = useAppSelector((state) => state.roomReducer);
    const messageRef = useRef<HTMLDivElement>(null);
-
-   useEffect(() => {
-      socket.on('message', (message: MessageTypes[]) => {
-         setMessages(message);
-      });
-
-      return () => {
-         socket.off('message');
-      };
-
-      //eslint-disable-next-line
-   }, []);
-
-   useEffect(() => {
-      socket.emit('roomMessages');
-   }, []);
+   const userSlice = useAppSelector((state) => state.authUserReducer.user);
 
    useEffect(() => {
       if (messageRef.current && messageRef.current) {
          messageRef.current.scrollTop = messageRef.current.scrollHeight;
       }
-
       //eslint-disable-next-line
    }, [socket.id]);
 
@@ -47,11 +31,11 @@ const Messages = () => {
       if (messages.length > 0)
          if (
             messageRef.current &&
-            messages[messages.length - 1].id === socket.id
+            messages[messages.length - 1].id === userSlice?.id
          ) {
             messageRef.current.scrollTop = messageRef.current.scrollHeight;
          }
-   }, [messages]);
+   }, [userSlice?.id, messages]);
 
    return (
       <>
@@ -61,7 +45,7 @@ const Messages = () => {
                   {messages.map((message: MessageTypes, index) => {
                      return (
                         <React.Fragment key={message.message + index}>
-                           {message.id === socket.id ? (
+                           {message.id === userSlice?.id ? (
                               <UserMessage
                                  time={message.atDate}
                                  message={message.message}

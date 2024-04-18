@@ -13,8 +13,7 @@ import {
    useAppSelector,
 } from '../../../../../../redux/hooks/hooks';
 import { triggerAction } from '../../../../../../redux/slices/dashboardSlice';
-import useAuth from '../../../../../../hooks/useAuth';
-import { socket } from '../../../../Chat';
+
 import Room from './components/room/Room';
 import {
    changeRoomAction,
@@ -38,7 +37,6 @@ const rooms: roomsType[] = [
 ];
 
 const Rooms = () => {
-   const auth = useAuth();
    const dispatch = useAppDispatch();
    const roomsSlice = useAppSelector((state) => state.roomReducer.trigger);
 
@@ -46,15 +44,6 @@ const Rooms = () => {
       dispatch(triggerAction(false));
 
       dispatch(getRoomAction(room));
-
-      socket.emit('joinRoom', {
-         userId: socket.id,
-         room: room,
-         userName: auth?.user_metadata.full_name,
-         avatar_url: auth?.user_metadata.avatar_url,
-      });
-
-      socket.emit('roomMessages');
 
       dispatch(changeRoomAction(true));
    };

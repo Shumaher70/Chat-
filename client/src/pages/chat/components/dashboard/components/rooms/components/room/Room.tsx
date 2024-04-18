@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './Room.module.scss';
-import { socket } from '../../../../../../Chat';
+
 import { FaUser } from 'react-icons/fa';
 
 interface usersType {
@@ -12,18 +12,6 @@ interface usersType {
 
 const Room = () => {
    const [users, setUsers] = useState<usersType[]>([]);
-
-   useEffect(() => {
-      socket.emit('room');
-
-      socket.on('room', (data: usersType[]) => {
-         setUsers(data);
-      });
-
-      return () => {
-         socket.off('room');
-      };
-   }, []);
 
    return (
       <div className={styles.room}>

@@ -1,22 +1,11 @@
-export type roomType = {
-   room: string;
-   userName: string;
-   avatar_url: string;
-   userId: string;
-};
-
-export type allUserType = {
-   id: string;
-   room: string;
-   userName: string;
-   avatar_url: string;
+export type userType = {
+   user_id: string;
+   name: string;
+   avatar: string;
 };
 
 export type messageType = {
-   id: string;
-   room: string;
-   userName: string;
-   avatar_url: string;
+   user_id: string;
    message: string;
-   atData: string;
+   room: string;
 };

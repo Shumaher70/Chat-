@@ -1,9 +1,11 @@
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { Auth } from '@supabase/auth-ui-react';
 import styles from './LoginPage.module.scss';
-import { supabase } from './AuthLayout';
+import useSupabase from '../hooks/useSupabase';
 
 const LoginPage = () => {
+   const supabase = useSupabase();
+
    return (
       <div className={styles.auth}>
          <div className="">
