@@ -8,9 +8,11 @@ import { useAppSelector } from '../../redux/hooks/hooks';
 import { dashboardTrigger } from './utils/dashboardTrigger';
 import { io } from 'socket.io-client';
 import Header from './components/header/Header';
+import usePostUser from '../../hooks/usePostUser';
 
 export const socket = io('http://localhost:4000');
 const Chat = () => {
+   usePostUser();
    const [width] = useObserver();
    const dashboardTriggerSlice = useAppSelector(
       (state) => state.dashboardReducer.trigger
