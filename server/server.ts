@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 import { handleConnect } from './sockets/connectEvent';
 
 import usersRoutes from './routes/users.routes';
+import roomsRoutes from './routes/rooms.routes';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/users', usersRoutes);
+app.use('/api/rooms', roomsRoutes);
 
 const server = http.createServer(app);
 const io = new Server(server, {

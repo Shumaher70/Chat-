@@ -19,24 +19,11 @@ import {
    changeRoomAction,
    getRoomAction,
 } from '../../../../../../redux/slices/roomsSlice';
-
-type roomsType = {
-   icon: JSX.Element;
-   label: string;
-};
-
-const rooms: roomsType[] = [
-   {
-      icon: <FaReact className={styles.FaReact} />,
-      label: 'React',
-   },
-   {
-      icon: <FaNodeJs className={styles.FaNodeJs} />,
-      label: 'NodeJs',
-   },
-];
+import useGetRooms from '../../../../../../hooks/useGetRooms';
 
 const Rooms = () => {
+   const { rooms } = useGetRooms();
+
    const dispatch = useAppDispatch();
    const roomsSlice = useAppSelector((state) => state.roomReducer.trigger);
 
@@ -65,15 +52,24 @@ const Rooms = () => {
                }}
                className={`${roomsSlice ? styles.hiddenIn : styles.hiddenOut}`}
             >
-               {rooms.map((room, i) => (
-                  <ListItem key={i} disablePadding>
+               {rooms.map((room) => (
+                  <ListItem key={room.room_id} disablePadding>
                      <ListItemButton
                         onClick={() => {
-                           handleClick(room.label);
+                           handleClick(room.room_name);
                         }}
                      >
-                        <ListItemIcon>{room.icon}</ListItemIcon>
-                        <ListItemText primary={room.label} />
+                        {room.room_name === 'React' && (
+                           <ListItemIcon>
+                              <FaReact className={styles.FaReact} />
+                           </ListItemIcon>
+                        )}
+                        {room.room_name === 'Next' && (
+                           <ListItemIcon>
+                              <FaNodeJs className={styles.FaNodeJs} />
+                           </ListItemIcon>
+                        )}
+                        <ListItemText primary={room.room_name} />
                      </ListItemButton>
                   </ListItem>
                ))}
