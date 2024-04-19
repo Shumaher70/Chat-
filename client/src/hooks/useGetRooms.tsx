@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface RoomsType {
+export interface RoomType {
    id: string;
    room_id: string;
    room_name: string;
@@ -8,7 +8,7 @@ interface RoomsType {
 
 const useGetRooms = () => {
    const [loading, setLoading] = useState<boolean>(false);
-   const [rooms, setRooms] = useState<RoomsType[]>([]);
+   const [rooms, setRooms] = useState<RoomType[]>([]);
 
    useEffect(() => {
       (async () => {

@@ -1,24 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './Messages.module.scss';
 import UserMessage from './components/userMessage/UserMessage';
 import UsersMessages from './components/usersMessages/UsersMessages';
 import { socket } from '../../Chat';
 import { useAppSelector } from '../../../../redux/hooks/hooks';
-
-interface MessageTypes {
-   id: string;
-   room: string;
-   userName: string;
-   avatar_url: string;
-   message: string;
-   atDate: string;
-}
+import useGetMessageInRoom, {
+   messageType,
+} from '../../../../hooks/useGetMessageInRoom';
 
 const Messages = () => {
-   const [messages, setMessages] = useState<MessageTypes[]>([]);
    const { trigger } = useAppSelector((state) => state.roomReducer);
    const messageRef = useRef<HTMLDivElement>(null);
    const userSlice = useAppSelector((state) => state.authUserReducer.user);
+   const { messages } = useGetMessageInRoom();
 
    useEffect(() => {
       if (messageRef.current && messageRef.current) {
@@ -28,13 +22,13 @@ const Messages = () => {
    }, [socket.id]);
 
    useEffect(() => {
-      if (messages.length > 0)
-         if (
-            messageRef.current &&
-            messages[messages.length - 1].id === userSlice?.id
-         ) {
-            messageRef.current.scrollTop = messageRef.current.scrollHeight;
-         }
+      if (!messages) return;
+      if (
+         messageRef.current &&
+         messages[messages.length - 1].user_id === userSlice?.id
+      ) {
+         messageRef.current.scrollTop = messageRef.current.scrollHeight;
+      }
    }, [userSlice?.id, messages]);
 
    return (
@@ -42,18 +36,20 @@ const Messages = () => {
          {messages && trigger && (
             <div className={styles.messagesContainer}>
                <div ref={messageRef} className={styles.messages}>
-                  {messages.map((message: MessageTypes, index) => {
+                  {/* changing type */}
+                  {messages.map((message: messageType) => {
+                     const { id, user_id, message_text, created_at } = message;
                      return (
-                        <React.Fragment key={message.message + index}>
-                           {message.id === userSlice?.id ? (
+                        <React.Fragment key={id}>
+                           {user_id === userSlice?.id ? (
                               <UserMessage
-                                 time={message.atDate}
-                                 message={message.message}
+                                 time={created_at}
+                                 message={message_text}
                               />
                            ) : (
                               <UsersMessages
-                                 time={message.atDate}
-                                 message={message.message}
+                                 time={created_at}
+                                 message={message_text}
                               />
                            )}
                         </React.Fragment>

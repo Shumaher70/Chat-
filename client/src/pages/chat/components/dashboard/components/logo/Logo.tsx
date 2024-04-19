@@ -9,7 +9,10 @@ import UserIcon from './userIcon/UserIcon';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 
 import styles from './Logo.module.scss';
-import { changeRoomAction } from '../../../../../../redux/slices/roomsSlice';
+import {
+   changeRoomAction,
+   getRoomIdAction,
+} from '../../../../../../redux/slices/roomsSlice';
 const Logo = () => {
    const { trigger } = useAppSelector((state) => state.roomReducer);
 
@@ -17,6 +20,7 @@ const Logo = () => {
 
    const handleClick = () => {
       dispatch(changeRoomAction(false));
+      dispatch(getRoomIdAction(null));
    };
 
    return (

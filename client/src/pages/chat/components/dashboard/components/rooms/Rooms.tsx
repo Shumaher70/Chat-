@@ -18,6 +18,7 @@ import Room from './components/room/Room';
 import {
    changeRoomAction,
    getRoomAction,
+   getRoomIdAction,
 } from '../../../../../../redux/slices/roomsSlice';
 import useGetRooms from '../../../../../../hooks/useGetRooms';
 
@@ -27,11 +28,10 @@ const Rooms = () => {
    const dispatch = useAppDispatch();
    const roomsSlice = useAppSelector((state) => state.roomReducer.trigger);
 
-   const handleClick = (room: string) => {
+   const handleClick = (room_name: string, room_id: string) => {
       dispatch(triggerAction(false));
-
-      dispatch(getRoomAction(room));
-
+      dispatch(getRoomAction(room_name));
+      dispatch(getRoomIdAction(room_id));
       dispatch(changeRoomAction(true));
    };
 
@@ -56,7 +56,7 @@ const Rooms = () => {
                   <ListItem key={room.room_id} disablePadding>
                      <ListItemButton
                         onClick={() => {
-                           handleClick(room.room_name);
+                           handleClick(room.room_name, room.room_id);
                         }}
                      >
                         {room.room_name === 'React' && (
