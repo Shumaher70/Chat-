@@ -8,6 +8,7 @@ import { handleConnect } from './sockets/connectEvent';
 
 import usersRoutes from './routes/users.routes';
 import roomsRoutes from './routes/rooms.routes';
+import messagesRoutes from './routes/messages.routes';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 
 app.use('/api/users', usersRoutes);
 app.use('/api/rooms', roomsRoutes);
+app.use('/api/messages', messagesRoutes);
 
 const server = http.createServer(app);
 const io = new Server(server, {

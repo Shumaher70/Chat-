@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useAppSelector } from '../../../../../../../redux/hooks/hooks';
+import usePostMessageToRoom from '../../../../../../../hooks/usePostMessageToRoom';
 
 const useInputEffect = (
    input: string,
@@ -10,10 +11,12 @@ const useInputEffect = (
 ) => {
    const [enter, setEnter] = useState<boolean>(false);
    const { room } = useAppSelector((state) => state.roomReducer);
+   const { setMessage_text } = usePostMessageToRoom();
 
    useEffect(() => {
       if (keyword === 'Enter' && !shiftKey) {
          if (input !== '') {
+            setMessage_text(input);
             //socket
          }
 
@@ -22,10 +25,11 @@ const useInputEffect = (
       } else if (input !== '') {
          setEnter(false);
       }
-   }, [handleClearInput, input, keyword, room, shiftKey]);
+   }, [handleClearInput, input, keyword, room, setMessage_text, shiftKey]);
 
    const handleClick = () => {
       if (input !== '') {
+         setMessage_text(input);
          //socket
       }
 
