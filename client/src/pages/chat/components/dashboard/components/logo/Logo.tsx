@@ -13,14 +13,16 @@ import {
    changeRoomAction,
    getRoomIdAction,
 } from '../../../../../../redux/slices/roomsSlice';
+import useLeaveRoomSocket from '../../../../../../hooks/useLeaveRoomSocket';
 const Logo = () => {
    const { trigger } = useAppSelector((state) => state.roomReducer);
-
+   const { handleLeaveRoom } = useLeaveRoomSocket();
    const dispatch = useAppDispatch();
 
    const handleClick = () => {
       dispatch(changeRoomAction(false));
       dispatch(getRoomIdAction(null));
+      handleLeaveRoom();
    };
 
    return (

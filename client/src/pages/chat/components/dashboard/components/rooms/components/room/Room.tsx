@@ -1,36 +1,36 @@
-import { useEffect, useState } from 'react';
+import useRoomSocket from '../../../../../../../../hooks/useRoomSocket';
 import styles from './Room.module.scss';
 
 import { FaUser } from 'react-icons/fa';
 
-interface usersType {
-   id: string;
-   room: string;
-   userName: string;
-   avatar_url: string;
-}
-
 const Room = () => {
-   const [users, setUsers] = useState<usersType[]>([]);
+   const { users } = useRoomSocket();
 
    return (
-      <div className={styles.room}>
-         {users.map((user, index) => (
-            <div className={styles.user} key={index}>
-               <div className={styles.avatar}>
-                  {user.avatar_url && (
-                     <img
-                        srcSet={`${user.avatar_url}`}
-                        alt="avata"
-                        loading="lazy"
-                     />
-                  )}
-                  {!user.avatar_url && <FaUser />}
-               </div>
-               <span>{user.userName}</span>
+      <>
+         {users.length > 0 && (
+            <div className={styles.room}>
+               {users.map((user) => {
+                  const { user_id, name, avatar } = user;
+                  return (
+                     <div className={styles.user} key={user_id}>
+                        <div className={styles.avatar}>
+                           {avatar && (
+                              <img
+                                 srcSet={`${avatar}`}
+                                 alt="avata"
+                                 loading="lazy"
+                              />
+                           )}
+                           {!avatar && <FaUser />}
+                        </div>
+                        <span>{name}</span>
+                     </div>
+                  );
+               })}
             </div>
-         ))}
-      </div>
+         )}
+      </>
    );
 };
 

@@ -4,11 +4,12 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 
 import bodyParser from 'body-parser';
-import { handleConnect } from './sockets/connectEvent';
 
 import usersRoutes from './routes/users.routes';
 import roomsRoutes from './routes/rooms.routes';
 import messagesRoutes from './routes/messages.routes';
+import { joinToRoomEvent } from './sockets/joinToRoomEvent';
+import { leaveRoomEvent } from './sockets/leaveRoomEvent';
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use('/api/rooms', roomsRoutes);
 app.use('/api/messages', messagesRoutes);
 
 const server = http.createServer(app);
-const io = new Server(server, {
+export const io = new Server(server, {
    cors: {
       origin: ['http://localhost:3000'],
       methods: ['GET', 'POST'],
@@ -29,7 +30,8 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-   handleConnect(socket);
+   joinToRoomEvent(socket);
+   leaveRoomEvent(socket);
 });
 
 server.listen(4000, () => console.log('Server is running on port 4000'));

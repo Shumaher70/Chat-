@@ -18,7 +18,7 @@ const useGetRooms = () => {
             const getRooms = await response.json();
             setRooms(getRooms);
          } catch (error: any) {
-            throw new Error(
+            console.error(
                `something went wrong at getting rooms ${error.message}`
             );
          } finally {

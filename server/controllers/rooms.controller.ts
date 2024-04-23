@@ -5,9 +5,7 @@ export const getRoomsController = async (req: Request, res: Response) => {
    try {
       const { data, error } = await supabase.from('rooms').select();
       if (error) {
-         throw new Error(
-            'something went wrong with get data from database rooms'
-         );
+         console.error(`something went wrong with getting rooms from rooms `);
       }
 
       if (data?.length !== 0) {
@@ -33,14 +31,15 @@ export const getRoomController = async (req: Request, res: Response) => {
          .eq('room_id', room_id);
 
       if (error) {
-         throw new Error(
-            'something went wrong with get data from database room'
+         console.error(
+            `something went wrong with get data from database room ${error}`
          );
       }
 
-      const { messages } = data[0];
-
-      res.status(200).json(messages);
+      if (data) {
+         const { messages } = data[0];
+         res.status(200).json(messages);
+      }
    } catch (error) {
       console.log(`error request to supabase rooms in server`);
 
