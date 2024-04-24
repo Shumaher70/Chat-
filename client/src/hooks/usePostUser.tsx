@@ -16,7 +16,9 @@ const usePostUser = () => {
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
                      user_id: userSlice.id,
-                     name: userSlice.user_metadata.full_name,
+                     name:
+                        userSlice.user_metadata.full_name ??
+                        `${`user${userSlice.id.slice(0, 3)}`}`,
                      avatar: userSlice.user_metadata.avatar_url,
                   }),
                }
