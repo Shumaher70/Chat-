@@ -26,8 +26,35 @@ export const postUserController = async (req: Request, res: Response) => {
             .insert({ user_id, name, avatar });
 
          res.status(200).json(users);
+      } else {
+         res.status(200).json('userExist');
       }
    } catch (error) {
+      return res.status(500).json({ error: error });
+   }
+};
+
+export const getUserController = async (req: Request, res: Response) => {
+   const id = req.params.id;
+
+   try {
+      const { data, error } = await supabase
+         .from('users')
+         .select()
+         .eq('user_id', id);
+
+      if (data !== null && data.length > 0) {
+         const user = data[0];
+
+         return res.status(200).json(user);
+      } else {
+         return res.status(200).json(error);
+      }
+   } catch (error) {
+      console.error(
+         `something went wrong with supabase when getting "user" on server ${error}`
+      );
+
       return res.status(500).json({ error: error });
    }
 };

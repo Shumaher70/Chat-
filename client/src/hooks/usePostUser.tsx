@@ -28,7 +28,7 @@ const usePostUser = () => {
 
             return users;
          } catch (error: any) {
-            throw new Error(error.message);
+            console.error(error);
          }
       })();
       //eslint-disable-next-line
