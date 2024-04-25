@@ -11,12 +11,13 @@ const useInputEffect = (
 ) => {
    const [enter, setEnter] = useState<boolean>(false);
    const { room } = useAppSelector((state) => state.roomReducer);
-   const { setMessage_text } = usePostMessageToRoom();
+   const { setMessage_text, setTrigger } = usePostMessageToRoom();
 
    useEffect(() => {
       if (keyword === 'Enter' && !shiftKey) {
          if (input !== '') {
             setMessage_text(input);
+            setTrigger((prev) => prev + 1);
             //socket
          }
 
@@ -25,11 +26,13 @@ const useInputEffect = (
       } else if (input !== '') {
          setEnter(false);
       }
+      // eslint-disable-next-line
    }, [handleClearInput, input, keyword, room, setMessage_text, shiftKey]);
 
    const handleClick = () => {
       if (input !== '') {
          setMessage_text(input);
+         setTrigger((prev) => prev + 1);
          //socket
       }
 
