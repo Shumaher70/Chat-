@@ -18,11 +18,14 @@ const useRoomSocket = () => {
 
    useEffect(() => {
       if (room_id && user) {
+         const userName =
+            user.user_metadata.full_name ?? `user${user.id.slice(0, 3)}`;
+
          const data = {
             room_id,
             user: {
                user_id: user?.id,
-               name: user.user_metadata?.full_name,
+               name: userName,
                avatar: user.user_metadata?.avatar_url,
             },
          };
