@@ -4,8 +4,8 @@ export type userType = {
 
 export type messageType = {
    user_id: string;
-   message: string;
-   room: string;
+   room_id: string;
+   message_text: string;
 };
 
 export type joinToRoom = {

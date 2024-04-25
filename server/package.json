@@ -6,7 +6,8 @@
       "cors": "^2.8.5",
       "dotenv": "^16.4.5",
       "express": "^4.19.2",
-      "socket.io": "^4.7.5"
+      "socket.io": "^4.7.5",
+      "uuid": "^9.0.1"
    },
    "scripts": {
       "dev": "nodemon server.ts"
@@ -17,6 +18,7 @@
       "@types/express": "^4.17.21",
       "@types/node": "^20.11.30",
       "@types/socket.io": "^3.0.2",
+      "@types/uuid": "^9.0.8",
       "nodemon": "^3.1.0",
       "typescript": "^5.4.3"
    }

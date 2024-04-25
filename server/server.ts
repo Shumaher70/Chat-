@@ -10,6 +10,7 @@ import roomsRoutes from './routes/rooms.routes';
 import messagesRoutes from './routes/messages.routes';
 import { joinToRoomEvent } from './sockets/joinToRoomEvent';
 import { leaveRoomEvent } from './sockets/leaveRoomEvent';
+import { sendMessageToRoomEvent } from './sockets/sendMessageToRoomEvent';
 
 const app = express();
 
@@ -32,6 +33,7 @@ export const io = new Server(server, {
 io.on('connection', (socket) => {
    joinToRoomEvent(socket);
    leaveRoomEvent(socket);
+   sendMessageToRoomEvent(socket);
 });
 
 server.listen(4000, () => console.log('Server is running on port 4000'));

@@ -36,9 +36,9 @@ const Messages = () => {
          {messages && trigger && (
             <div className={styles.messagesContainer}>
                <div ref={messageRef} className={styles.messages}>
-                  {/* changing type */}
                   {messages.map((message: messageType) => {
                      const { id, user_id, message_text, created_at } = message;
+
                      return (
                         <React.Fragment key={id}>
                            {user_id === userSlice?.id ? (

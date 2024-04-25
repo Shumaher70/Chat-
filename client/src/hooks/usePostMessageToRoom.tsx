@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../redux/hooks/hooks';
+import { socket } from '../pages/chat/Chat';
 
 export const handlePostMessageInRoom = async (
    room_id: string,
@@ -32,9 +33,10 @@ const usePostMessageToRoom = () => {
    const user_id = useAppSelector((state) => state.authUserReducer.user?.id);
    const [message_text, setMessage_text] = useState<string>('');
    const [loading, setLoading] = useState(false);
+   const [trigger, setTrigger] = useState<number>(0);
 
    useEffect(() => {
-      const handleSendMessage = async () => {
+      (async () => {
          if (!room_id) {
             throw new Error(
                'something went wrong when trying to get "room_id" from usePostMessageToRoom'
@@ -51,18 +53,23 @@ const usePostMessageToRoom = () => {
 
          try {
             setLoading(true);
-
             await handlePostMessageInRoom(room_id, user_id, message_text);
          } catch (error) {
             throw new Error(`something while sending message ${error}`);
          } finally {
             setLoading(false);
          }
-      };
-      handleSendMessage();
-   }, [message_text, room_id, user_id]);
+      })();
+   }, [message_text, room_id, user_id, trigger]);
+   //socket send message
 
-   return { setMessage_text, loading };
+   useEffect(() => {
+      if (!message_text) return;
+      socket.emit('sendMessageToRoom', { room_id, user_id, message_text });
+      // eslint-disable-next-line
+   }, [message_text, trigger]);
+
+   return { setMessage_text, loading, setTrigger };
 };
 
 export default usePostMessageToRoom;
