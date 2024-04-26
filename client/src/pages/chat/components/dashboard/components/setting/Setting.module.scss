@@ -1,0 +1,53 @@
+.setting {
+   display: flex;
+   flex-direction: column;
+   height: calc(100vh - 80px);
+   width: 100%;
+   gap: 10px;
+   overflow-y: auto;
+}
+
+.hiddenIn {
+   animation: hiddenAnimationIn 0.4s normal forwards linear;
+}
+
+.hiddenOut {
+   width: 100%;
+   animation: hiddenAnimationOut 0.4s normal forwards linear;
+   overflow-y: auto;
+}
+
+@keyframes hiddenAnimationIn {
+   0% {
+      transform: translateY(0%);
+      opacity: 1;
+      display: none;
+   }
+   50% {
+      transform: translateY(25%);
+      opacity: 0.5;
+   }
+
+   100% {
+      transform: translateY(-25%);
+      opacity: 0;
+   }
+}
+
+@keyframes hiddenAnimationOut {
+   0% {
+      transform: translateY(-25%);
+      opacity: 0;
+      display: none;
+   }
+
+   50% {
+      transform: translateY(20%);
+      opacity: 0.5;
+   }
+
+   100% {
+      transform: translateY(0%);
+      opacity: 1;
+   }
+}
