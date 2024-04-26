@@ -8,13 +8,13 @@ interface UserMessagesProps {
 }
 
 const UsersMessages = ({ message, time }: UserMessagesProps) => {
-   const { trigger } = useAppSelector((state) => state.roomReducer);
+   const { room } = useAppSelector((state) => state.dashboardReducer);
 
    return (
       <div className={`${styles.usersMessages}`}>
          <div
             className={`${styles.wrapperContainerMessages} ${
-               trigger && styles.showing
+               room && styles.showing
             }`}
          >
             <div className={`${styles.svgContainer}`}>

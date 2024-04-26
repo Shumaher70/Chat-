@@ -9,7 +9,7 @@ const TextInput = () => {
    const [input, setInput] = useState<string>('');
    const [shiftKey, setShiftKey] = useState<boolean>(false);
    const { theme } = useCustomTextInputTheme();
-   const { trigger } = useAppSelector((state) => state.roomReducer);
+   const { room } = useAppSelector((state) => state.dashboardReducer);
 
    const inputMemo = useMemo(() => {
       return input;
@@ -35,17 +35,17 @@ const TextInput = () => {
    };
 
    useEffect(() => {
-      if (!trigger) {
+      if (!room) {
          setInput('');
       }
-   }, [trigger]);
+   }, [room]);
 
    return (
       <>
-         {trigger && (
+         {room && (
             <div
                className={`${styles.textInput} dark-2 ${
-                  trigger && styles.showing
+                  room && styles.showing
                }`}
             >
                <div className={`${styles.inputContainer}`}>

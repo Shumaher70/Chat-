@@ -4,13 +4,14 @@ import Burger from '../sidebarToggle/burger/Burger';
 import styles from './Header.module.scss';
 
 const Header = () => {
-   const { room, trigger } = useAppSelector((state) => state.roomReducer);
+   const { roomName } = useAppSelector((state) => state.roomReducer);
+   const { room } = useAppSelector((state) => state.dashboardReducer);
 
    return (
       <div className={`${styles.header}`}>
-         {trigger && (
-            <h1 className={`${styles.title} ${trigger && styles.showing}`}>
-               {room}
+         {room && (
+            <h1 className={`${styles.title} ${room && styles.showing}`}>
+               {roomName}
             </h1>
          )}
 

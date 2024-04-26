@@ -9,7 +9,7 @@ import useGetMessageInRoom, {
 } from '../../../../hooks/useGetMessageInRoom';
 
 const Messages = () => {
-   const { trigger } = useAppSelector((state) => state.roomReducer);
+   const { room } = useAppSelector((state) => state.dashboardReducer);
    const messageRef = useRef<HTMLDivElement>(null);
    const userSlice = useAppSelector((state) => state.authUserReducer.user);
    const { messages } = useGetMessageInRoom();
@@ -33,7 +33,7 @@ const Messages = () => {
 
    return (
       <>
-         {messages && trigger && (
+         {messages && room && (
             <div className={styles.messagesContainer}>
                <div ref={messageRef} className={styles.messages}>
                   {messages.map((message: messageType) => {

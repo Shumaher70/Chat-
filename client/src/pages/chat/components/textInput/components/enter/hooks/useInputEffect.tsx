@@ -10,7 +10,7 @@ const useInputEffect = (
    keyword: string
 ) => {
    const [enter, setEnter] = useState<boolean>(false);
-   const { room } = useAppSelector((state) => state.roomReducer);
+   const { roomName } = useAppSelector((state) => state.roomReducer);
    const { setMessage_text, setTrigger } = usePostMessageToRoom();
 
    useEffect(() => {
@@ -27,7 +27,7 @@ const useInputEffect = (
          setEnter(false);
       }
       // eslint-disable-next-line
-   }, [handleClearInput, input, keyword, room, setMessage_text, shiftKey]);
+   }, [handleClearInput, input, keyword, roomName, setMessage_text, shiftKey]);
 
    const handleClick = () => {
       if (input !== '') {

@@ -12,11 +12,14 @@ import {
    useAppDispatch,
    useAppSelector,
 } from '../../../../../../redux/hooks/hooks';
-import { triggerAction } from '../../../../../../redux/slices/dashboardSlice';
+import {
+   roomAction,
+   roomsAction,
+   triggerAction,
+} from '../../../../../../redux/slices/dashboardSlice';
 
 import Room from './components/room/Room';
 import {
-   changeRoomAction,
    getRoomAction,
    getRoomIdAction,
 } from '../../../../../../redux/slices/roomsSlice';
@@ -26,31 +29,32 @@ const Rooms = () => {
    const { rooms } = useGetRooms();
 
    const dispatch = useAppDispatch();
-   const roomsSlice = useAppSelector((state) => state.roomReducer.trigger);
+   const { rooms: showRooms, room: showRoom } = useAppSelector(
+      (state) => state.dashboardReducer
+   );
 
    const handleClick = (room_name: string, room_id: string) => {
-      dispatch(triggerAction(false));
+      dispatch(triggerAction(true));
       dispatch(getRoomAction(room_name));
       dispatch(getRoomIdAction(room_id));
-      dispatch(changeRoomAction(true));
+      dispatch(roomAction(true));
+      dispatch(roomsAction(false));
    };
 
    return (
       <div className={styles.rooms}>
-         {roomsSlice && (
-            <div
-               className={`${roomsSlice ? styles.hiddenOut : styles.hiddenIn}`}
-            >
+         {showRoom && (
+            <div className={`${showRoom ? styles.hiddenOut : styles.hiddenIn}`}>
                <Room />
             </div>
          )}
 
-         {!roomsSlice && (
+         {showRooms && (
             <List
                sx={{
                   width: '100%',
                }}
-               className={`${roomsSlice ? styles.hiddenIn : styles.hiddenOut}`}
+               className={`${showRooms ? styles.hiddenOut : styles.hiddenIn}`}
             >
                {rooms.map((room) => (
                   <ListItem key={room.room_id} disablePadding>
