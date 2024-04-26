@@ -1,7 +1,74 @@
 .dashboard {
+   position: relative;
    width: 100%;
    height: 100%;
    overflow-y: hidden;
    overflow-x: hidden;
    border-right: 1px solid rgba(99, 99, 99, 0.24);
+
+   .setting {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      padding-top: 80px;
+      z-index: 1;
+   }
+
+   .signout {
+      border-top: 1px solid rgba(99, 99, 99, 0.24);
+      min-height: 96px;
+      width: 100%;
+      padding: 20px;
+   }
+}
+
+.hiddenIn {
+   animation: hiddenAnimationIn 0.2s normal forwards linear;
+   display: none !important;
+}
+
+.hiddenOut {
+   width: 100%;
+   animation: hiddenAnimationOut 0.2s normal forwards linear;
+   overflow-y: auto;
+   display: flex;
+}
+
+@keyframes hiddenAnimationIn {
+   0% {
+      transform: translateY(0%);
+      opacity: 1;
+      display: none !important;
+   }
+   50% {
+      transform: translateY(25%);
+      opacity: 0.5;
+   }
+
+   100% {
+      transform: translateY(-25%);
+      opacity: 0;
+   }
+}
+
+@keyframes hiddenAnimationOut {
+   0% {
+      transform: translateY(-25%);
+      opacity: 0;
+   }
+
+   50% {
+      transform: translateY(20%);
+      opacity: 0.5;
+   }
+
+   100% {
+      transform: translateY(0%);
+      opacity: 1;
+      display: none !important;
+   }
 }

@@ -29,9 +29,11 @@ const Rooms = () => {
    const { rooms } = useGetRooms();
 
    const dispatch = useAppDispatch();
-   const { rooms: showRooms, room: showRoom } = useAppSelector(
-      (state) => state.dashboardReducer
-   );
+   const {
+      rooms: showRooms,
+      room: showRoom,
+      setting,
+   } = useAppSelector((state) => state.dashboardReducer);
 
    const handleClick = (room_name: string, room_id: string) => {
       dispatch(triggerAction(true));
@@ -44,7 +46,11 @@ const Rooms = () => {
    return (
       <div className={styles.rooms}>
          {showRoom && (
-            <div className={`${showRoom ? styles.hiddenOut : styles.hiddenIn}`}>
+            <div
+               className={`${
+                  showRoom && !setting ? styles.hiddenOut : styles.hiddenIn
+               }`}
+            >
                <Room />
             </div>
          )}
@@ -54,7 +60,9 @@ const Rooms = () => {
                sx={{
                   width: '100%',
                }}
-               className={`${showRooms ? styles.hiddenOut : styles.hiddenIn}`}
+               className={`${
+                  showRooms && !setting ? styles.hiddenOut : styles.hiddenIn
+               }`}
             >
                {rooms.map((room) => (
                   <ListItem key={room.room_id} disablePadding>

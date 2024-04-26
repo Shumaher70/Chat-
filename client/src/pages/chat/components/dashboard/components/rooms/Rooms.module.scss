@@ -15,7 +15,7 @@
 }
 
 .hiddenIn {
-   animation: hiddenAnimationIn 0.4s normal infinite linear;
+   animation: hiddenAnimationIn 0.4s normal forwards linear;
 }
 
 .hiddenOut {
