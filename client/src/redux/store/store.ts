@@ -5,6 +5,7 @@ import authUserReducer from '../slices/authUserSlice';
 import dashboardReducer from '../slices/dashboardSlice';
 import themeReducer from '../slices/themeSlice';
 import roomReducer from '../slices/roomsSlice';
+import userReducer from '../slices/userSlice';
 import storage from 'redux-persist/lib/storage';
 import {
    FLUSH,
@@ -24,12 +25,14 @@ const persistConfig = {
       'roomReducer',
       'themeReducer',
       'authUserReducer',
+      'userReducer',
    ],
 };
 
 const reducers = combineReducers({
    dashboardReducer,
    authUserReducer,
+   userReducer,
    themeReducer,
    roomReducer,
 });
