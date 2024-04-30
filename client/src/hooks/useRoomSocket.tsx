@@ -12,21 +12,20 @@ const useRoomSocket = () => {
    const [users, setUsers] = useState<usersSocketTypes[]>([]);
 
    const room_id = useAppSelector((state) => state.roomReducer.room_id);
-   const user = useAppSelector((state) => state.authUserReducer.user);
+   const user = useAppSelector((state) => state.userReducer);
 
    //eslint-disable-next-line
 
    useEffect(() => {
       if (room_id && user) {
-         const userName =
-            user.user_metadata.full_name ?? `user${user.id.slice(0, 3)}`;
+         const userName = user.name ?? `user${user.user_id!.slice(0, 3)}`;
 
          const data = {
             room_id,
             user: {
                user_id: user?.id,
                name: userName,
-               avatar: user.user_metadata?.avatar_url,
+               avatar: user.avatar,
             },
          };
 

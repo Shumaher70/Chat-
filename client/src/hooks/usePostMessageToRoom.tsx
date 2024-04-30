@@ -30,7 +30,7 @@ export const handlePostMessageInRoom = async (
 
 const usePostMessageToRoom = () => {
    const room_id = useAppSelector((state) => state.roomReducer.room_id);
-   const user_id = useAppSelector((state) => state.authUserReducer.user?.id);
+   const user_id = useAppSelector((state) => state.userReducer.user_id);
    const [message_text, setMessage_text] = useState<string>('');
    const [loading, setLoading] = useState(false);
    const [trigger, setTrigger] = useState<number>(0);

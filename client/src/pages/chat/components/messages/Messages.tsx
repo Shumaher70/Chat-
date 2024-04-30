@@ -11,7 +11,7 @@ import useGetMessageInRoom, {
 const Messages = () => {
    const { room } = useAppSelector((state) => state.dashboardReducer);
    const messageRef = useRef<HTMLDivElement>(null);
-   const userSlice = useAppSelector((state) => state.authUserReducer.user);
+   const userSlice = useAppSelector((state) => state.userReducer);
    const { messages } = useGetMessageInRoom();
 
    useEffect(() => {
@@ -25,11 +25,11 @@ const Messages = () => {
       if (!messages) return;
       if (
          messageRef.current &&
-         messages[messages.length - 1].user_id === userSlice?.id
+         messages[messages.length - 1].user_id === userSlice.id
       ) {
          messageRef.current.scrollTop = messageRef.current.scrollHeight;
       }
-   }, [userSlice?.id, messages]);
+   }, [userSlice.id, messages]);
 
    return (
       <>
@@ -41,7 +41,7 @@ const Messages = () => {
 
                      return (
                         <React.Fragment key={id}>
-                           {user_id === userSlice?.id ? (
+                           {user_id === userSlice.id ? (
                               <UserMessage
                                  time={created_at}
                                  message={message_text}
