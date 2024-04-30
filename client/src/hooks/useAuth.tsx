@@ -12,7 +12,16 @@ const useAuth = () => {
          const data: { data: { user: User | null } } =
             await supabase.auth.getUser();
          const { user } = data.data;
-         dispatch(getAuthUserAction(user));
+         if (user) {
+            dispatch(
+               getAuthUserAction({
+                  id: user?.id ?? '',
+                  name: user?.user_metadata.full_name ?? '',
+                  avatar: user?.user_metadata.avatar_url ?? '',
+                  email: user?.email ?? '',
+               })
+            );
+         }
       })();
    }, [dispatch, supabase.auth]);
 };
