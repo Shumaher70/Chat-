@@ -1,8 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { User } from '@supabase/supabase-js';
 
 interface authUser {
-   user: User | null;
+   user: {
+      id: string;
+      name: string;
+      avatar: string;
+      email: string;
+   } | null;
 }
 
 const initialState: authUser = {
@@ -13,7 +17,15 @@ const authUserSlice = createSlice({
    name: 'auth',
    initialState,
    reducers: {
-      getAuthUserAction: (state, action: PayloadAction<User | null>) => {
+      getAuthUserAction: (
+         state,
+         action: PayloadAction<{
+            id: string;
+            name: string;
+            avatar: string;
+            email: string;
+         } | null>
+      ) => {
          state.user = action.payload;
       },
 
