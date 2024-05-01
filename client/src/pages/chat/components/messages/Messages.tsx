@@ -41,7 +41,7 @@ const Messages = () => {
 
                      return (
                         <React.Fragment key={id}>
-                           {user_id === userSlice.id ? (
+                           {user_id === userSlice.user_id ? (
                               <UserMessage
                                  time={created_at}
                                  message={message_text}

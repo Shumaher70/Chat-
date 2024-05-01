@@ -15,6 +15,9 @@ export const joinToRoomEvent = (socket: Socket) => {
 
       if (userIndex !== -1) {
          allUsers[userIndex].room_id = room_id;
+         allUsers[userIndex].user_id = user_id;
+         allUsers[userIndex].name = name;
+         allUsers[userIndex].avatar = avatar;
       } else {
          allUsers.push({
             room_id,
