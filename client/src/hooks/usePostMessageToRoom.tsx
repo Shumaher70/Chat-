@@ -5,7 +5,9 @@ import { socket } from '../pages/chat/Chat';
 export const handlePostMessageInRoom = async (
    room_id: string,
    user_id: string,
-   message_text: string
+   message_text: string,
+   name: string,
+   avatar: string
 ) => {
    try {
       const request = await fetch('http://localhost:4000/api/messages/room', {
@@ -15,6 +17,8 @@ export const handlePostMessageInRoom = async (
             room_id,
             user_id,
             message_text,
+            name,
+            avatar,
          }),
       });
 
@@ -30,7 +34,9 @@ export const handlePostMessageInRoom = async (
 
 const usePostMessageToRoom = () => {
    const room_id = useAppSelector((state) => state.roomReducer.room_id);
-   const user_id = useAppSelector((state) => state.userReducer.user_id);
+   const { user_id, name, avatar } = useAppSelector(
+      (state) => state.userReducer
+   );
    const [message_text, setMessage_text] = useState<string>('');
    const [loading, setLoading] = useState(false);
    const [trigger, setTrigger] = useState<number>(0);
@@ -53,19 +59,31 @@ const usePostMessageToRoom = () => {
 
          try {
             setLoading(true);
-            await handlePostMessageInRoom(room_id, user_id, message_text);
+            await handlePostMessageInRoom(
+               room_id,
+               user_id,
+               message_text,
+               name ?? '',
+               avatar ?? ''
+            );
          } catch (error) {
             throw new Error(`something while sending message ${error}`);
          } finally {
             setLoading(false);
          }
       })();
-   }, [message_text, room_id, user_id, trigger]);
+   }, [message_text, room_id, user_id, trigger, name, avatar]);
    //socket send message
 
    useEffect(() => {
       if (!message_text) return;
-      socket.emit('sendMessageToRoom', { room_id, user_id, message_text });
+      socket.emit('sendMessageToRoom', {
+         room_id,
+         user_id,
+         message_text,
+         name,
+         avatar,
+      });
       // eslint-disable-next-line
    }, [message_text, trigger]);
 

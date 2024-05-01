@@ -1,15 +1,15 @@
-.usersMessages {
+.usersMessagesLeft {
    width: 100%;
    padding-left: 10%;
    padding-right: 10%;
    display: flex;
    height: max-content;
 
-   .wrapperContainerMessages {
+   .wrapperContainerMessagesLeft {
       display: flex;
       max-width: 45%;
 
-      .svgContainer {
+      .svgContainerLeft {
          display: flex;
 
          span {
@@ -17,7 +17,7 @@
          }
       }
 
-      .messagesContainer {
+      .messagesContainerLeft {
          display: flex;
          flex-direction: row-reverse;
          gap: 5px;
@@ -25,7 +25,7 @@
          border-radius: 0px 10px 10px 10px;
          word-break: break-all;
 
-         .time {
+         .timeLeft {
             position: relative;
             right: 5px;
             bottom: -7px;
@@ -35,17 +35,123 @@
             align-items: end;
             white-space: nowrap;
          }
+         .nameLeft {
+            position: absolute;
+            top: -15px;
+            left: 33px;
+            font-size: 13px;
+            text-transform: initial;
+            cursor: pointer;
+            font-style: oblique;
+            &:hover {
+               text-decoration: underline;
+            }
+         }
+      }
+
+      .imageContainerLeft {
+         height: 30px;
+         width: 30px;
+         overflow: hidden;
+         border-radius: 100%;
+
+         img {
+            height: 100%;
+            width: 100%;
+         }
       }
    }
 }
 
-.showing {
-   animation: showingAnimation 0.4s normal forwards linear;
+// right
+.usersMessagesRight {
+   width: 100%;
+   padding-left: 10%;
+   padding-right: 10%;
+   display: flex;
+   height: max-content;
+   justify-content: end;
+
+   .wrapperContainerMessagesRight {
+      display: flex;
+      max-width: 45%;
+      flex-direction: row-reverse;
+      .svgContainerRight {
+         display: flex;
+
+         span {
+            display: flex;
+         }
+      }
+
+      .messagesContainerRight {
+         display: flex;
+         gap: 10px;
+         padding: 10px;
+         border-radius: 10px 0px 10px 10px;
+         word-break: break-all;
+
+         .timeRight {
+            position: relative;
+            right: 5px;
+            bottom: -7px;
+            display: flex;
+            font-size: 12px;
+            height: 100%;
+            align-items: end;
+            white-space: nowrap;
+         }
+         .nameRight {
+            position: absolute;
+            top: -15px;
+            right: 33px;
+            font-size: 13px;
+            text-transform: initial;
+            cursor: pointer;
+            font-style: oblique;
+            &:hover {
+               text-decoration: underline;
+            }
+         }
+      }
+
+      .imageContainerRight {
+         height: 30px;
+         width: 30px;
+         overflow: hidden;
+         border-radius: 100%;
+
+         img {
+            height: 100%;
+            width: 100%;
+         }
+      }
+   }
 }
 
-@keyframes showingAnimation {
+.showingLeft {
+   animation: showingAnimationLeft 0.4s normal forwards linear;
+}
+
+.showingRight {
+   animation: showingAnimationRight 0.4s normal forwards linear;
+}
+
+@keyframes showingAnimationLeft {
    0% {
       transform: translateX(-200%);
+      opacity: 0;
+   }
+
+   100% {
+      transform: translateX(0%);
+      opacity: 1;
+   }
+}
+
+@keyframes showingAnimationRight {
+   0% {
+      transform: translateX(100%);
       opacity: 0;
    }
 

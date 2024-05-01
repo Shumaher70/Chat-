@@ -6,7 +6,7 @@ import { io } from '../server';
 
 export const sendMessageToRoomEvent = (socket: Socket) => {
    socket.on('sendMessageToRoom', (data: messageType) => {
-      const { user_id, room_id, message_text } = data;
+      const { user_id, room_id, message_text, name, avatar } = data;
 
       const created_at = new Date().toISOString();
 
@@ -14,6 +14,8 @@ export const sendMessageToRoomEvent = (socket: Socket) => {
          user_id,
          room_id,
          message_text,
+         name,
+         avatar,
          created_at,
          id: uuidv4(),
       });

@@ -8,6 +8,8 @@ export interface messageType {
    user_id: string;
    created_at: string;
    id: number | string;
+   name: string;
+   avatar: string;
 }
 
 const useGetMessageInRoom = () => {

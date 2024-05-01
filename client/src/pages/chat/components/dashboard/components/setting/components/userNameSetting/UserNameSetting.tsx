@@ -1,4 +1,4 @@
-import { InputLabel, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import styles from './UserNameSetting.module.scss';
 import useCustomTextInputTheme from '../../../../../textInput/useCustomTextInputTheme';
 import { CgSpinner } from 'react-icons/cg';

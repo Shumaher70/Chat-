@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Messages.module.scss';
-import UserMessage from './components/userMessage/UserMessage';
 import UsersMessages from './components/usersMessages/UsersMessages';
 import { socket } from '../../Chat';
 import { useAppSelector } from '../../../../redux/hooks/hooks';
@@ -37,21 +36,25 @@ const Messages = () => {
             <div className={styles.messagesContainer}>
                <div ref={messageRef} className={styles.messages}>
                   {messages.map((message: messageType) => {
-                     const { id, user_id, message_text, created_at } = message;
+                     const {
+                        id,
+                        user_id,
+                        message_text,
+                        created_at,
+                        name,
+                        avatar,
+                     } = message;
 
                      return (
                         <React.Fragment key={id}>
-                           {user_id === userSlice.user_id ? (
-                              <UserMessage
-                                 time={created_at}
-                                 message={message_text}
-                              />
-                           ) : (
-                              <UsersMessages
-                                 time={created_at}
-                                 message={message_text}
-                              />
-                           )}
+                           <UsersMessages
+                              time={created_at}
+                              message={message_text}
+                              name={name}
+                              avatar={avatar}
+                              right={userSlice.user_id === user_id}
+                              left={userSlice.user_id !== user_id}
+                           />
                         </React.Fragment>
                      );
                   })}

@@ -6,6 +6,8 @@ export type messageType = {
    user_id: string;
    room_id: string;
    message_text: string;
+   name: string;
+   avatar: string;
 };
 
 export type joinToRoom = {

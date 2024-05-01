@@ -27,7 +27,9 @@ export const getRoomController = async (req: Request, res: Response) => {
    try {
       const { data, error } = await supabase
          .from('rooms')
-         .select(`messages ( message_text, room_id , user_id,created_at,id)`)
+         .select(
+            `messages ( message_text, room_id , user_id,created_at,id,name,avatar)`
+         )
          .eq('room_id', room_id);
 
       if (error) {

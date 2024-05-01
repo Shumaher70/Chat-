@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { supabase } from '../utils/supabase';
 
 export const postMessageController = async (req: Request, res: Response) => {
-   const { room_id, user_id, message_text } = req.body;
+   const { room_id, user_id, message_text, name, avatar } = req.body;
 
    try {
       if (!room_id) {
@@ -20,6 +20,8 @@ export const postMessageController = async (req: Request, res: Response) => {
          room_id,
          user_id,
          message_text,
+         name,
+         avatar,
       });
 
       const { data } = await supabase.from('messages').select();
