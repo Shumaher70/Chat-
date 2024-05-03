@@ -1,5 +1,6 @@
 import { FaReact } from 'react-icons/fa';
 import { FaNodeJs } from 'react-icons/fa';
+import { IoAdd } from 'react-icons/io5';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,6 +14,7 @@ import {
    useAppSelector,
 } from '../../../../../../redux/hooks/hooks';
 import {
+   createRoomAction,
    roomAction,
    roomsAction,
    triggerAction,
@@ -43,6 +45,10 @@ const Rooms = () => {
       dispatch(roomsAction(false));
    };
 
+   const handleClickOnCreateRoom = () => {
+      dispatch(createRoomAction());
+   };
+
    return (
       <div className={styles.rooms}>
          {showRoom && (
@@ -64,27 +70,42 @@ const Rooms = () => {
                   showRooms && !setting ? styles.hiddenOut : styles.hiddenIn
                }`}
             >
-               {rooms.map((room) => (
-                  <ListItem key={room.room_id} disablePadding>
-                     <ListItemButton
-                        onClick={() => {
-                           handleClick(room.room_name, room.room_id);
-                        }}
-                     >
-                        {room.room_name === 'React' && (
-                           <ListItemIcon>
-                              <FaReact className={styles.FaReact} />
-                           </ListItemIcon>
-                        )}
-                        {room.room_name === 'Next' && (
-                           <ListItemIcon>
-                              <FaNodeJs className={styles.FaNodeJs} />
-                           </ListItemIcon>
-                        )}
-                        <ListItemText primary={room.room_name} />
-                     </ListItemButton>
-                  </ListItem>
-               ))}
+               <ListItem
+                  disablePadding
+                  sx={{
+                     borderBottom: '1px solid gray',
+                  }}
+               >
+                  <ListItemButton onClick={handleClickOnCreateRoom}>
+                     <ListItemIcon>
+                        <IoAdd className={styles.iconPlus} />
+                     </ListItemIcon>
+                     <ListItemText primary={'ADD NEW ROOM'} />
+                  </ListItemButton>
+               </ListItem>
+
+               {rooms.length > 0 &&
+                  rooms.map((room) => (
+                     <ListItem key={room.room_id} disablePadding>
+                        <ListItemButton
+                           onClick={() => {
+                              handleClick(room.room_name, room.room_id);
+                           }}
+                        >
+                           {room.room_name === 'React' && (
+                              <ListItemIcon>
+                                 <FaReact className={styles.FaReact} />
+                              </ListItemIcon>
+                           )}
+                           {room.room_name === 'Next' && (
+                              <ListItemIcon>
+                                 <FaNodeJs className={styles.FaNodeJs} />
+                              </ListItemIcon>
+                           )}
+                           <ListItemText primary={room.room_name} />
+                        </ListItemButton>
+                     </ListItem>
+                  ))}
             </List>
          )}
       </div>
