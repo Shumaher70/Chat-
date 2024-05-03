@@ -1,0 +1,39 @@
+.submit {
+   position: absolute;
+   bottom: 0%;
+   right: 8px;
+   height: 30px;
+   width: 30px;
+   transform: translateY(-50%);
+   cursor: pointer;
+   z-index: 1;
+}
+
+.success {
+   color: green;
+}
+
+.reject {
+   color: red;
+}
+
+.spinner {
+   position: absolute;
+   top: 50%;
+   right: 8px;
+   height: 30px;
+   width: 30px;
+   transform: translateY(-50%);
+   cursor: pointer;
+   z-index: 1;
+   animation: spinnerAnimation 0.6s infinite linear normal;
+}
+
+@keyframes spinnerAnimation {
+   0% {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%) rotate(360deg);
+   }
+}
