@@ -7,6 +7,7 @@ const useCustomTextInputTheme = (rounded?: string) => {
       '& .MuiFilledInput-root': {
          color: `${themeSlice === 'light' ? '#0f0f0f' : '#f2f2f2'}`,
          backgroundColor: `${themeSlice === 'light' ? '#C8C8C8' : '#434145'}`,
+         transition: 'all 0.5s ease-in-out',
          borderRadius: `${rounded ? `${rounded}px` : '7px'}`,
          overflow: 'hidden',
          '&:before': {
