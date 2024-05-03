@@ -4,12 +4,14 @@ interface dashboardType {
    trigger: boolean;
    rooms: boolean;
    room: boolean;
+   createRoom: boolean;
    setting: boolean;
 }
 
 const initialState: dashboardType = {
    trigger: false,
    setting: false,
+   createRoom: false,
    rooms: true,
    room: false,
 };
@@ -30,10 +32,18 @@ const dashboardSlice = createSlice({
       settingAction: (state) => {
          state.setting = !state.setting;
       },
+      createRoomAction: (state) => {
+         state.createRoom = !state.setting;
+      },
    },
 });
 
-export const { triggerAction, roomsAction, settingAction, roomAction } =
-   dashboardSlice.actions;
+export const {
+   triggerAction,
+   roomsAction,
+   settingAction,
+   roomAction,
+   createRoomAction,
+} = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
