@@ -1,0 +1,19 @@
+.createRoom {
+   width: 100%;
+   height: 100%;
+
+   .item {
+      position: relative;
+      display: flex;
+      width: 100%;
+   }
+
+   .sendButton {
+      position: absolute;
+      right: 0;
+   }
+
+   .roomName {
+      width: 100%;
+   }
+}
