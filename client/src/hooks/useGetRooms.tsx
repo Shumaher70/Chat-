@@ -4,6 +4,8 @@ export interface RoomType {
    id: string;
    room_id: string;
    room_name: string;
+   user_id: string;
+   room_label: string;
 }
 
 const useGetRooms = () => {
