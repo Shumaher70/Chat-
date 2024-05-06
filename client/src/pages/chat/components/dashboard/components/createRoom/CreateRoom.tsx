@@ -3,8 +3,13 @@ import styles from './CreateRoom.module.scss';
 import OptionIcons from './components/optionIcons/OptionIcons';
 import RoomName from './components/roomName/RoomName';
 import SendButtonToChangeRoomName from './components/sendButtonChange/SendButtonToChangeRoomName';
-import { useAppSelector } from '../../../../../../redux/hooks/hooks';
-import { v4 as uuidv4 } from 'uuid';
+import {
+   useAppDispatch,
+   useAppSelector,
+} from '../../../../../../redux/hooks/hooks';
+
+import useCreateRoom from '../../../../../../hooks/useCreateRoom';
+import { refreshRoomAction } from '../../../../../../redux/slices/roomsSlice';
 
 export interface addRoomType {
    room_id: string;
@@ -14,14 +19,41 @@ export interface addRoomType {
 }
 
 const CreateRoom = () => {
-   const { user_id } = useAppSelector((state) => state.userReducer);
+   const { user_id: id } = useAppSelector((state) => state.userReducer);
+
+   const dispatch = useAppDispatch();
+   const { handleSend, loading, success, error } = useCreateRoom();
 
    const [room, setRoom] = useState<addRoomType>({
-      room_id: uuidv4(),
+      room_id: '',
       room_name: '',
-      user_id: user_id as string,
+      user_id: id as string,
       room_label: 'react',
    });
+
+   const { room_id, user_id, room_name, room_label } = room;
+
+   const handleClick = () => {
+      if (!room_id) {
+         return console.error('room_id is null');
+      }
+
+      if (!user_id) {
+         return console.error('user_id is null');
+      }
+
+      if (!room_name) {
+         return console.error('room_name is null');
+      }
+
+      if (!room_label) {
+         return console.error('room_label is null');
+      }
+
+      handleSend(room);
+
+      dispatch(refreshRoomAction());
+   };
 
    return (
       <div className={styles.createRoom}>
@@ -31,8 +63,13 @@ const CreateRoom = () => {
             </div>
 
             <div className={styles.roomName}>
-               <RoomName setRoom={setRoom} />
-               <SendButtonToChangeRoomName />
+               <RoomName setRoom={setRoom} error={error} />
+               <SendButtonToChangeRoomName
+                  loading={loading}
+                  success={success}
+                  error={error}
+                  handleClick={handleClick}
+               />
             </div>
          </div>
       </div>
