@@ -48,3 +48,35 @@ export const getRoomController = async (req: Request, res: Response) => {
       res.status(500).json({ error: error });
    }
 };
+
+export const createRoomController = async (req: Request, res: Response) => {
+   const { room_id, room_name, user_id, room_label } = req.body.room;
+
+   const { data } = await supabase
+      .from('rooms')
+      .select()
+      .eq('room_name', room_name);
+   if (data) {
+      const roomExists = data.length > 0;
+
+      if (!roomExists) {
+         supabase.from('rooms').insert({
+            room_id,
+            room_name,
+            user_id,
+            room_label,
+         });
+
+         return res.json({ error: false, message: null });
+      }
+
+      return res.json({ error: roomExists, message: 'Name already exists' });
+   }
+
+   try {
+   } catch (error: any) {
+      console.error(
+         `something went wrong in rooms.controller ${error.message}`
+      );
+   }
+};
