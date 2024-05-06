@@ -2,18 +2,28 @@ import { CgSpinner } from 'react-icons/cg';
 import { CiCircleCheck } from 'react-icons/ci';
 import styles from './SendButtonToChangeRoomName.module.scss';
 
-const SendButtonToChangeRoomName = () => {
-   const handleClick = () => {};
-   const loading = false;
-   const success = false;
-   const error = false;
+interface SendButtonToChangeRoomNameProps {
+   loading: boolean;
+   success: boolean;
+   error: {
+      error: boolean;
+      message: string | null;
+   };
+   handleClick: () => void;
+}
 
+const SendButtonToChangeRoomName = ({
+   loading,
+   success,
+   error,
+   handleClick,
+}: SendButtonToChangeRoomNameProps) => {
    return (
       <>
          {!loading ? (
             <CiCircleCheck
                className={`${styles.submit} ${success && `${styles.success}`} ${
-                  error && `${styles.reject}`
+                  error.error && `${styles.reject}`
                }`}
                onClick={handleClick}
             />
