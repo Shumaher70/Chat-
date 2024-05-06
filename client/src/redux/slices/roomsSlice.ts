@@ -24,9 +24,16 @@ const roomsSlice = createSlice({
       getRoomIdAction: (state, action: PayloadAction<string | null>) => {
          state.room_id = action.payload;
       },
+      refreshRoomAction: (state) => {
+         state.roomName = null;
+         state.room_id = null;
+         state.user_id = null;
+         state.room_label = null;
+      },
    },
 });
 
-export const { getRoomAction, getRoomIdAction } = roomsSlice.actions;
+export const { getRoomAction, getRoomIdAction, refreshRoomAction } =
+   roomsSlice.actions;
 
 export default roomsSlice.reducer;
