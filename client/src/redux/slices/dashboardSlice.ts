@@ -32,8 +32,8 @@ const dashboardSlice = createSlice({
       settingAction: (state) => {
          state.setting = !state.setting;
       },
-      createRoomAction: (state) => {
-         state.createRoom = !state.setting;
+      createRoomAction: (state, action: PayloadAction<boolean>) => {
+         state.createRoom = action.payload;
       },
    },
 });
