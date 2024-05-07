@@ -20,14 +20,17 @@ import {
 
 import Room from './components/room/Room';
 import {
-   getRoomAction,
+   getRoomNameAction,
    getRoomIdAction,
 } from '../../../../../../redux/slices/roomsSlice';
 import useGetRooms from '../../../../../../hooks/useGetRooms';
 import iconRoom from './utils/iconRoom';
+import RemoveRoom from './components/removeRoom/RemoveRoom';
+import { useEffect } from 'react';
 
 const Rooms = () => {
-   const { rooms } = useGetRooms();
+   const { handleGetRooms } = useGetRooms();
+   const { rooms } = useAppSelector((state) => state.roomReducer);
 
    const dispatch = useAppDispatch();
    const {
@@ -36,9 +39,14 @@ const Rooms = () => {
       setting,
    } = useAppSelector((state) => state.dashboardReducer);
 
+   useEffect(() => {
+      handleGetRooms();
+      // eslint-disable-next-line
+   }, []);
+
    const handleClick = (room_name: string, room_id: string) => {
       dispatch(triggerAction(true));
-      dispatch(getRoomAction(room_name));
+      dispatch(getRoomNameAction(room_name));
       dispatch(getRoomIdAction(room_id));
       dispatch(roomAction(true));
       dispatch(roomsAction(false));
@@ -69,12 +77,7 @@ const Rooms = () => {
                   showRooms && !setting ? styles.hiddenOut : styles.hiddenIn
                }`}
             >
-               <ListItem
-                  disablePadding
-                  sx={{
-                     borderBottom: '1px solid gray',
-                  }}
-               >
+               <ListItem disablePadding>
                   <ListItemButton onClick={handleClickOnCreateRoom}>
                      <ListItemIcon>
                         <IoAdd className={styles.iconPlus} />
@@ -85,7 +88,11 @@ const Rooms = () => {
 
                {rooms.length > 0 &&
                   rooms.map((room) => (
-                     <ListItem key={room.room_id} disablePadding>
+                     <ListItem
+                        key={room.room_id}
+                        disablePadding
+                        className={styles.listItem}
+                     >
                         <ListItemButton
                            onClick={() => {
                               handleClick(room.room_name, room.room_id);
@@ -98,6 +105,8 @@ const Rooms = () => {
                            )}
                            <ListItemText primary={room.room_name} />
                         </ListItemButton>
+
+                        <RemoveRoom room={room} />
                      </ListItem>
                   ))}
             </List>

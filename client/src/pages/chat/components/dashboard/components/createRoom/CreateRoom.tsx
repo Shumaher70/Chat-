@@ -12,6 +12,7 @@ import useCreateRoom from '../../../../../../hooks/useCreateRoom';
 import { refreshRoomAction } from '../../../../../../redux/slices/roomsSlice';
 import { GoSignOut } from 'react-icons/go';
 import { createRoomAction } from '../../../../../../redux/slices/dashboardSlice';
+import useGetRooms from '../../../../../../hooks/useGetRooms';
 
 export interface addRoomType {
    room_id: string;
@@ -25,6 +26,7 @@ const CreateRoom = () => {
 
    const dispatch = useAppDispatch();
    const { handleSend, loading, success, error } = useCreateRoom();
+   const { handleGetRooms } = useGetRooms();
 
    const [room, setRoom] = useState<addRoomType>({
       room_id: '',
@@ -53,12 +55,13 @@ const CreateRoom = () => {
       }
 
       handleSend(room);
-
+      handleGetRooms();
       dispatch(refreshRoomAction());
    };
 
    const handleOut = () => {
       dispatch(createRoomAction(false));
+      handleGetRooms();
    };
 
    return (
@@ -80,7 +83,7 @@ const CreateRoom = () => {
                </div>
             </div>
          </div>
-         <div className={`${styles.signout} dark-1`}>
+         <div className={`${styles.signout} dark-2`}>
             <div className={styles.signout_icon_container} onClick={handleOut}>
                <GoSignOut className={styles.signout_icon_container_icon} />
                <p>BACK</p>
