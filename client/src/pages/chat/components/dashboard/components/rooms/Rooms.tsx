@@ -1,5 +1,3 @@
-import { FaReact } from 'react-icons/fa';
-import { FaNodeJs } from 'react-icons/fa';
 import { IoAdd } from 'react-icons/io5';
 
 import List from '@mui/material/List';
@@ -26,6 +24,7 @@ import {
    getRoomIdAction,
 } from '../../../../../../redux/slices/roomsSlice';
 import useGetRooms from '../../../../../../hooks/useGetRooms';
+import iconRoom from './utils/iconRoom';
 
 const Rooms = () => {
    const { rooms } = useGetRooms();
@@ -92,14 +91,9 @@ const Rooms = () => {
                               handleClick(room.room_name, room.room_id);
                            }}
                         >
-                           {room.room_name === 'React' && (
+                           {room.room_label && (
                               <ListItemIcon>
-                                 <FaReact className={styles.FaReact} />
-                              </ListItemIcon>
-                           )}
-                           {room.room_name === 'Next' && (
-                              <ListItemIcon>
-                                 <FaNodeJs className={styles.FaNodeJs} />
+                                 {iconRoom(room.room_label)}
                               </ListItemIcon>
                            )}
                            <ListItemText primary={room.room_name} />
