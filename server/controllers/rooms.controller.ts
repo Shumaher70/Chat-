@@ -60,7 +60,7 @@ export const createRoomController = async (req: Request, res: Response) => {
       const roomExists = data.length > 0;
 
       if (!roomExists) {
-         supabase.from('rooms').insert({
+         await supabase.from('rooms').insert({
             room_id,
             room_name,
             user_id,
