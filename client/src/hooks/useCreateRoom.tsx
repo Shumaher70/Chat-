@@ -21,8 +21,8 @@ export const handlePostRoom = async (
 
       if (response.ok) {
          setLoading(false);
-         setSuccess(true);
          const room = await response.json();
+         setSuccess(() => !room.message);
 
          setError({ error: room.error, message: room.message });
          return await room;
