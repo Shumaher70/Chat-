@@ -9,7 +9,7 @@ import { useAppSelector } from '../../../../../../../../redux/hooks/hooks';
 import { addRoomType } from '../../CreateRoom';
 
 const options = [
-   { value: 'react', label: <FaReact />, color: 'lightblue' },
+   { value: 'react', label: <FaReact />, color: '#58C4DC' },
    { value: 'nodejs', label: <FaNodeJs />, color: 'green' },
    { value: 'redux', label: <SiRedux />, color: 'purple' },
    { value: 'angular', label: <RiAngularjsLine />, color: 'red' },
