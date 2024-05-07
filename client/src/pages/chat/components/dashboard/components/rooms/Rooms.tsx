@@ -46,7 +46,7 @@ const Rooms = () => {
    };
 
    const handleClickOnCreateRoom = () => {
-      dispatch(createRoomAction());
+      dispatch(createRoomAction(true));
    };
 
    return (
