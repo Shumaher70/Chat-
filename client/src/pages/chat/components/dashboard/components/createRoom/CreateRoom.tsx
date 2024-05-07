@@ -10,6 +10,8 @@ import {
 
 import useCreateRoom from '../../../../../../hooks/useCreateRoom';
 import { refreshRoomAction } from '../../../../../../redux/slices/roomsSlice';
+import { GoSignOut } from 'react-icons/go';
+import { createRoomAction } from '../../../../../../redux/slices/dashboardSlice';
 
 export interface addRoomType {
    room_id: string;
@@ -55,21 +57,33 @@ const CreateRoom = () => {
       dispatch(refreshRoomAction());
    };
 
+   const handleOut = () => {
+      dispatch(createRoomAction(false));
+   };
+
    return (
       <div className={styles.createRoom}>
-         <div className={styles.item}>
-            <div className={styles.optionIcons}>
-               <OptionIcons setRoom={setRoom} />
-            </div>
+         <div className={styles.itemWrapper}>
+            <div className={styles.item}>
+               <div className={styles.optionIcons}>
+                  <OptionIcons setRoom={setRoom} />
+               </div>
 
-            <div className={styles.roomName}>
-               <RoomName setRoom={setRoom} error={error} />
-               <SendButtonToChangeRoomName
-                  loading={loading}
-                  success={success}
-                  error={error}
-                  handleClick={handleClick}
-               />
+               <div className={styles.roomName}>
+                  <RoomName setRoom={setRoom} error={error} success={success} />
+                  <SendButtonToChangeRoomName
+                     loading={loading}
+                     success={success}
+                     error={error}
+                     handleClick={handleClick}
+                  />
+               </div>
+            </div>
+         </div>
+         <div className={`${styles.signout} dark-1`}>
+            <div className={styles.signout_icon_container} onClick={handleOut}>
+               <GoSignOut className={styles.signout_icon_container_icon} />
+               <p>BACK</p>
             </div>
          </div>
       </div>

@@ -1,4 +1,8 @@
 .createRoom {
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
    width: 100%;
    height: 100%;
 
@@ -15,5 +19,25 @@
 
    .roomName {
       width: 100%;
+   }
+
+   .signout {
+      display: flex;
+      border-top: 1px solid rgba(99, 99, 99, 0.24);
+      min-height: 96px;
+      width: 100%;
+      padding: 20px;
+
+      .signout_icon_container {
+         display: flex;
+         align-items: center;
+         gap: 5px;
+         cursor: pointer;
+
+         .signout_icon_container_icon {
+            height: 40px;
+            width: 40px;
+         }
+      }
    }
 }
