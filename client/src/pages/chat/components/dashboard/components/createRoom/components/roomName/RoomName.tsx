@@ -1,18 +1,19 @@
 import { TextField } from '@mui/material';
 import useCustomTextInputTheme from '../../../../../textInput/useCustomTextInputTheme';
 import { addRoomType } from '../../CreateRoom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 interface RoomNameProps {
    setRoom: React.Dispatch<React.SetStateAction<addRoomType>>;
+   success: boolean;
    error: {
       error: boolean;
       message: string | null;
    };
 }
 
-const RoomName = ({ setRoom, error }: RoomNameProps) => {
+const RoomName = ({ setRoom, error, success }: RoomNameProps) => {
    const { theme } = useCustomTextInputTheme('0');
    const [input, setInput] = useState<string>('');
 
@@ -21,6 +22,12 @@ const RoomName = ({ setRoom, error }: RoomNameProps) => {
          setInput(event.currentTarget.value);
       }
    };
+
+   useEffect(() => {
+      if (success) {
+         setInput('');
+      }
+   }, [success]);
 
    const handleBlur = () => {
       setRoom((priv) => ({
@@ -35,9 +42,12 @@ const RoomName = ({ setRoom, error }: RoomNameProps) => {
          id="TextField"
          error={error.error}
          helperText={`${error.error ? error.message : ''}`}
-         label={'Enter room name'}
+         label={'Enter Room'}
          variant="filled"
-         sx={theme}
+         sx={{
+            ...theme,
+            boxShadow: '-1px 0px 0px 0px rgba(248, 248, 248, 0.137)',
+         }}
          autoComplete="off"
          onBlur={handleBlur}
          onChange={handleChange}
