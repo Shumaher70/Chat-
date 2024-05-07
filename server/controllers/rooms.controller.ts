@@ -11,11 +11,11 @@ export const getRoomsController = async (req: Request, res: Response) => {
       if (data?.length !== 0) {
          res.status(200).json(data);
       } else {
-         console.log(`rooms are not exist`);
+         console.error(`rooms are not exist`);
          res.status(401).json({ error });
       }
    } catch (error) {
-      console.log(`error request to supabase rooms in server`);
+      console.error(`error request to supabase rooms in server`);
 
       res.status(500).json({ error: error });
    }
@@ -43,7 +43,7 @@ export const getRoomController = async (req: Request, res: Response) => {
          res.status(200).json(messages);
       }
    } catch (error) {
-      console.log(`error request to supabase rooms in server`);
+      console.error(`error request to supabase rooms in server`);
 
       res.status(500).json({ error: error });
    }
@@ -77,6 +77,28 @@ export const createRoomController = async (req: Request, res: Response) => {
    } catch (error: any) {
       console.error(
          `something went wrong in rooms.controller ${error.message}`
+      );
+   }
+};
+
+export const deleteUserController = async (req: Request, res: Response) => {
+   const { room_id, room_name, user_id, room_label } = req.body.room;
+
+   try {
+      const { data: removeMessage } = await supabase
+         .from('messages')
+         .delete()
+         .eq('room_id', room_id);
+
+      const { data: removeRoom } = await supabase
+         .from('rooms')
+         .delete()
+         .eq('room_id', room_id);
+
+      return res.json(true);
+   } catch (error: any) {
+      console.error(
+         `something went wrong in rooms.controller when deleting a room ${error.message} `
       );
    }
 };
