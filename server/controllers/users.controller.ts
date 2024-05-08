@@ -72,6 +72,11 @@ export const putUserController = async (req: Request, res: Response) => {
          .update({ name: userName })
          .eq('user_id', id);
 
+      await supabase
+         .from('messages')
+         .update({ name: userName })
+         .eq('user_id', id);
+
       if (data !== null) {
          const user = data[0];
          return res.status(200).json(user);
