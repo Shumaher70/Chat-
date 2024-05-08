@@ -31,6 +31,7 @@ import { useEffect } from 'react';
 const Rooms = () => {
    const { handleGetRooms } = useGetRooms();
    const { rooms } = useAppSelector((state) => state.roomReducer);
+   const { user_id } = useAppSelector((state) => state.userReducer);
 
    const dispatch = useAppDispatch();
    const {
@@ -106,7 +107,7 @@ const Rooms = () => {
                            <ListItemText primary={room.room_name} />
                         </ListItemButton>
 
-                        <RemoveRoom room={room} />
+                        {room.user_id === user_id && <RemoveRoom room={room} />}
                      </ListItem>
                   ))}
             </List>

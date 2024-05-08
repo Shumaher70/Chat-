@@ -3,6 +3,7 @@ import useCustomTextInputTheme from '../../../../../textInput/useCustomTextInput
 import { addRoomType } from '../../CreateRoom';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useAppSelector } from '../../../../../../../../redux/hooks/hooks';
 
 interface RoomNameProps {
    setRoom: React.Dispatch<React.SetStateAction<addRoomType>>;
@@ -14,6 +15,8 @@ interface RoomNameProps {
 }
 
 const RoomName = ({ setRoom, error, success }: RoomNameProps) => {
+   const { user_id } = useAppSelector((state) => state.userReducer);
+
    const { theme } = useCustomTextInputTheme('0');
    const [input, setInput] = useState<string>('');
 
@@ -34,6 +37,7 @@ const RoomName = ({ setRoom, error, success }: RoomNameProps) => {
          ...priv,
          room_id: uuidv4(),
          room_name: input,
+         user_id: user_id as string,
       }));
    };
 

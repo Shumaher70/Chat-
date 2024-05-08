@@ -22,8 +22,6 @@ export interface addRoomType {
 }
 
 const CreateRoom = () => {
-   const { user_id: id } = useAppSelector((state) => state.userReducer);
-
    const dispatch = useAppDispatch();
    const { handleSend, loading, success, error } = useCreateRoom();
    const { handleGetRooms } = useGetRooms();
@@ -31,7 +29,7 @@ const CreateRoom = () => {
    const [room, setRoom] = useState<addRoomType>({
       room_id: '',
       room_name: '',
-      user_id: id as string,
+      user_id: '',
       room_label: 'react',
    });
 

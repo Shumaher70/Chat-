@@ -4,7 +4,27 @@
    justify-content: center;
    align-items: center;
    height: 100%;
-   width: 48px;
+   width: 60px;
    right: 0px;
    cursor: pointer;
+
+   .wrapperSelect {
+      display: flex !important;
+      gap: 5px;
+      .check {
+         height: 25px;
+         width: 25px;
+         &:hover {
+            color: green;
+         }
+      }
+
+      .remove {
+         height: 25px;
+         width: 25px;
+         &:hover {
+            color: tomato;
+         }
+      }
+   }
 }
