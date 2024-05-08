@@ -3,10 +3,7 @@ import styles from './CreateRoom.module.scss';
 import OptionIcons from './components/optionIcons/OptionIcons';
 import RoomName from './components/roomName/RoomName';
 import SendButtonToChangeRoomName from './components/sendButtonChange/SendButtonToChangeRoomName';
-import {
-   useAppDispatch,
-   useAppSelector,
-} from '../../../../../../redux/hooks/hooks';
+import { useAppDispatch } from '../../../../../../redux/hooks/hooks';
 
 import useCreateRoom from '../../../../../../hooks/useCreateRoom';
 import { refreshRoomAction } from '../../../../../../redux/slices/roomsSlice';

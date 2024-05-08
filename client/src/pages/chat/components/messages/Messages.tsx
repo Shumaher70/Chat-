@@ -24,11 +24,11 @@ const Messages = () => {
       if (!messages) return;
       if (
          messageRef.current &&
-         messages[messages.length - 1].user_id === userSlice.id
+         messages[messages.length - 1].user_id === userSlice.user_id
       ) {
          messageRef.current.scrollTop = messageRef.current.scrollHeight;
       }
-   }, [userSlice.id, messages]);
+   }, [userSlice.id, messages, userSlice.user_id]);
 
    return (
       <>

@@ -12,20 +12,22 @@ const useRoomSocket = () => {
    const [users, setUsers] = useState<usersSocketTypes[]>([]);
 
    const room_id = useAppSelector((state) => state.roomReducer.room_id);
-   const user = useAppSelector((state) => state.userReducer);
+   const { user_id, name, avatar } = useAppSelector(
+      (state) => state.userReducer
+   );
 
    //eslint-disable-next-line
 
    useEffect(() => {
-      if (room_id && user) {
-         const userName = user.name ?? `user${user.user_id!.slice(0, 3)}`;
+      if (room_id && user_id) {
+         const userName = name ?? `user${user_id!.slice(0, 3)}`;
 
          const data = {
             room_id,
             user: {
-               user_id: user?.id,
+               user_id: user_id,
                name: userName,
-               avatar: user.avatar,
+               avatar: avatar,
             },
          };
 
@@ -36,7 +38,9 @@ const useRoomSocket = () => {
 
    useEffect(() => {
       socket.on('chatRoom_users', (users: usersSocketTypes[]) => {
-         setUsers(users);
+         const newUsers = users.filter((user) => user.user_id !== user_id);
+
+         setUsers(newUsers);
       });
 
       return () => {

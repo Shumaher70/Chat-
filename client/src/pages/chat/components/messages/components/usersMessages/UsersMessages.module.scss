@@ -50,14 +50,16 @@
       }
 
       .imageContainerLeft {
-         height: 30px;
-         width: 30px;
+         max-height: 30px;
+         min-width: 30px;
          overflow: hidden;
          border-radius: 100%;
-
+         display: flex;
+         justify-content: center;
          img {
             height: 100%;
             width: 100%;
+            object-fit: cover;
          }
       }
    }
@@ -116,10 +118,12 @@
       }
 
       .imageContainerRight {
-         height: 30px;
-         width: 30px;
+         max-height: 30px;
+         min-width: 30px;
          overflow: hidden;
          border-radius: 100%;
+         display: flex;
+         justify-content: center;
 
          img {
             height: 100%;
@@ -158,5 +162,14 @@
    100% {
       transform: translateX(0%);
       opacity: 1;
+   }
+}
+
+@media (max-width: 768px) {
+   .wrapperContainerMessagesRight {
+      max-width: 100% !important;
+   }
+   .wrapperContainerMessagesLeft {
+      max-width: 100% !important;
    }
 }
